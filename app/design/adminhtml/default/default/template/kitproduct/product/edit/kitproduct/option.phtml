@@ -1,0 +1,244 @@
+<?php
+$product = Mage::registry('current_product');
+$productId = $product->getEntityId() ? $product->getEntityId() : 0;
+/** @var $this MagentoAid_KitProduct_Block_Adminhtml_Catalog_Product_Edit_Tab_KitProduct_Option */
+?>
+<script type="text/javascript">
+optionTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="group-box" style="border:2px solid blue;margin:7px 0px;padding: 7px"> ' +
+
+    '<input class="input-text required-entry" type="text" placeholder="Title" style="width:400px;font-weight:bold" name="<?php echo $this->getFieldName() ?>[{{index}}][title]" id="id_<?php echo $this->getFieldName() ?>_{{index}}_title" value="{{title}}"  autocomplete="off"  >' +
+    '<div style="float:right"><?php echo $this->jsQuoteEscape($this->getOptionDeleteButtonHtml()) ?></div>' +
+    '<input  type="hidden" id="<?php echo $this->getFieldId() ?>_id_{{index}}" name="<?php echo $this->getFieldName() ?>[{{index}}][option_id]" value="{{option_id}}">' +
+    '<input type="hidden" name="<?php echo $this->getFieldName() ?>[{{index}}][delete]" value="" class="delete">' +
+
+    '&nbsp;<input placeholder="Position" class="input-text validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{index}}][position]" value="{{position}}"  autocomplete="off"  >' +
+    '&nbsp;<?php echo $this->jsQuoteEscape($this->getAddSelectionButtonHtml()) ?>'+
+'</div><div id="<?php echo $this->getFieldId() ?>_search_{{index}}"></div>';
+</script>
+
+<?php echo $this->getSelectionHtml() ?>
+
+<script type="text/javascript">
+
+function changeInputType(oldObject, oType) {
+    var newObject = document.createElement('input');
+    newObject.type = oType;
+    if(oldObject.size) newObject.size = oldObject.size;
+    if(oldObject.value) newObject.value = oldObject.value;
+    if(oldObject.name) newObject.name = oldObject.name;
+    if(oldObject.id) newObject.id = oldObject.id;
+    if(oldObject.onclick) newObject.onclick = oldObject.onclick;
+    if(oldObject.className) newObject.className = oldObject.className;
+    oldObject.parentNode.replaceChild(newObject,oldObject);
+    return newObject;
+}
+
+KitProduct.Option = Class.create();
+KitProduct.Option.prototype = {
+    idLabel : '<?php echo $this->getFieldId() ?>',
+    top : '',
+    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+    templateText : '',
+    itemsCount : 0,
+
+    jsonKeyPrefix: '<?php echo Mage::helper('kitproduct/json')->getJsonKeyPrefix(); ?>',
+
+    initialize : function(template) {
+        this.templateText = template;
+        this.top = $('product_kitproduct_container_top');
+    },
+
+    add : function(data) {
+        if(!data){
+            data = {};
+            this.top = $('product_kitproduct_container_top');
+        } else {
+            data.title = data.title.replace('"', "&quot;");
+        }
+
+        data.index = this.itemsCount++;
+
+        this.template = new Template(this.templateText, this.templateSyntax);
+
+        Element.insert(this.top, {'after':this.template.evaluate(data)});
+
+        this.top = $(this.idLabel + '_' + data.index);
+
+        // rebind change notifications
+        varienWindowOnload(true);
+
+        return data.index;
+    },
+
+
+    sendAjax: function(url){
+        var self = this;
+
+        //console.log( url );
+
+        if(productForm.validate()) {  // _validate() redirects to product/validate and product/save
+            new Ajax.Request('<?= Mage::helper('adminhtml')->getUrl('adminhtml/ajax/saveOptions', array('id' => $productId)); ?>', {
+                method: 'post',
+                parameters: $('product_edit_form').serialize(true),
+
+                onSuccess: function (response) {
+                    var obj = JSON.parse(response.responseText);
+                    if ( obj.error == 1 )
+                    {
+                        alert(obj.message);
+                        return;
+                    }
+                    else
+                    {
+                        if ( Object.keys(obj.data).length > 0 )
+                        {
+                            self.applyProducts( obj.data );
+                        }
+                    }
+
+                    if ( url )
+                    {
+                        saveAndContinueEdit(url);
+                        productForm._submit();
+                    }
+                    else
+                    {
+                        productForm._submit();
+                    }
+
+                    //if (response.responseText == 'ok') {
+                        //if (url != '') {
+                            //saveAndContinueEdit(url);
+                        //} else {
+                        //    productForm.submit();
+                        //}
+                    //}
+                }
+
+            });
+        }
+    },
+
+    applyProducts: function( data ){
+
+        for(var groupIdWithPrefix in data)
+        {
+            var group = data[groupIdWithPrefix];
+            for(var subgroupIdWithPrefix in group)
+            {
+                var subgroupData = group[subgroupIdWithPrefix];
+
+                var groupId = groupIdWithPrefix.replace(this.jsonKeyPrefix, '');
+                var subgroupId = subgroupIdWithPrefix.replace(this.jsonKeyPrefix, '');
+
+                this._applyProductsForSubgroup(groupId, subgroupId, subgroupData);
+            }
+        }
+    },
+
+    _applyProductsForSubgroup: function(groupId, subgroupId, subgroupData){
+
+        var idProducts = 'kitproduct_selections_products_' + groupId + '_' + subgroupId;
+        $( idProducts ).setValue( JSON.stringify(subgroupData) );
+        // {&quot;k1&quot;:&quot;111&quot;,&quot;k2&quot;:&quot;222&quot;}  # JSON.stringify()
+
+        var optionProductIds;
+        if ( optionProductIds = subgroupData['child_ids'] )
+        {
+            var iProduct = 0;
+            var selectProducts = '#kitproduct_selection_sub_' + groupId + '_' + subgroupId + ' .option_product_id';
+            $$( selectProducts ).each(function(item){
+                if ( optionProductIds[iProduct] )
+                if ( !item.getValue() )
+                {
+                    item.setValue( optionProductIds[iProduct] );
+                }
+                iProduct++;
+            });
+        }
+    },
+
+    remove : function(sender){
+        var element = sender.up(1);
+
+        if ( element )
+        if ( element.hasClassName('group-box') )
+        {
+            Element.select(element, '.delete').each(function(elem){elem.value='1'});
+            Element.select(element, ['input', 'select']).each(function(elem){elem.hide(); elem.className = '';});
+            Element.hide(element);
+        }
+    }
+
+}
+
+
+
+
+/*
+ bOption.add()        # add group
+ bSelection.addBox()  # add subgroup
+ bSelection.addRow()  # add option
+*/
+
+var optionIndex = 0;
+bOption = new KitProduct.Option(optionTemplate);
+//adding data to templates
+<?php foreach ($this->getOptions() as $_option): ?>
+    optionIndex = bOption.add(<?php echo $_option->toJson() ?>);
+    <?php //if ( $_option->getSelections() ):?>
+    <?php //foreach ($_option->getSelections() as $_selection): ?>
+    <?php //$_selection->setName($this->escapeHtml($_selection->getName())); ?>
+
+    <?php if ( count($_option->getSelectionsCollection()) ): ?>
+    <?php foreach($_option->getSelectionsCollection() as $_selection): ?>
+    <?php
+        Mage::unregister('kit_selection');
+        Mage::register('kit_selection', $_selection);
+
+        $simples = Mage::helper('kitproduct/option_product')->getSortedSimples( $_selection );
+
+        $subgroup = array(
+          "selection_id" => $_selection->getSelectionId(),
+          "name" => $_selection->getName(),
+          "position" => $_selection->getPosition(),
+          "products" => array('parent_id' => $_selection->getEntityId(), 'child_ids' => $simples->getAllIds()),
+        );
+        $subgroup["products"]= $this->escapeHtml( Zend_Json::encode( $subgroup["products"] ) );
+        $jsonSubgroup = Zend_Json::encode($subgroup);
+    ?>
+        var index = bSelection.addBox(optionIndex, <?php echo $jsonSubgroup; ?>);
+
+        //bSelection.addRow(optionIndex, index, <?php echo $_selection->toJson() ?>);
+        <?php if ( count($simples) ): ?>
+        <?php foreach($simples as $s): ?>
+        <?php
+            $option = array(
+              "product_id" => $s->getEntityId(),
+              "title" => $s->getName(),
+              "position" => $s->getData('position'),
+              "price" => Mage::getModel('directory/currency')->format($s->getPrice(),array('display'=>Zend_Currency::NO_SYMBOL),false),
+              "depends_on_options" => '',
+            );
+
+
+            if ( $configurableProduct = Mage::registry('kit_selection') )
+            if ( strtolower($configurableProduct->getName()) != 'orientation' )
+            if ( $orientOptions = Mage::registry('orientation_options') )
+            if ( $orientDropdownOptions = Mage::helper('kitproduct/option_product')->getOrientationDropdownOptions($orientOptions, $s->getDependsOn()) )
+            {
+                $option['depends_on_options']= $orientDropdownOptions;
+            }
+
+        ?>
+            bSelection.addRow(optionIndex, index, <?php echo Zend_Json::encode($option); ?>);
+        <?php endforeach; ?>
+        <?php endif; ?>
+
+    <?php endforeach; ?>
+    <?php endif; ?>
+
+<?php endforeach; ?>
+
+
+</script>

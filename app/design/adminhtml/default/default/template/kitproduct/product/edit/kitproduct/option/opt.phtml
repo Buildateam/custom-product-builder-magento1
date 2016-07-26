@@ -1,0 +1,156 @@
+<?php
+$orientDropdownOptions2 = '';
+if ( $orientOptions = Mage::registry('orientation_options') )
+if ( $orientDropdownOptions = Mage::helper('kitproduct/option_product')->getOrientationDropdownOptions($orientOptions) )
+{
+    $orientDropdownOptions2 = $orientDropdownOptions;
+}
+//Mage::log( $orientDropdownOptions2 );
+
+?>
+<script type="text/javascript">
+//<![CDATA[
+
+var kitproductTemplateBox=
+    ' <input  type="text" placeholder="Title" class="default required-entry" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][name]" value="{{name}}"  autocomplete="off"  >' +
+    ' <input placeholder="Position" type="text" class="default" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][position]" value="{{position}}"  autocomplete="off"  >' +
+    '  &nbsp;<span title="Add Row"><button id="kitproduct_option_{{parentIndex}}_add_opt" title="Add Option" type="button" class="scalable add" onclick="bSelection.addRow({{parentIndex}},{{index}}, {depends_on_options: \'<?php echo htmlspecialchars( $orientDropdownOptions2 ); ?>\'})" style=""><span><span><span>Add Option</span></span></span></button></span>'+
+    '  &nbsp;<span title="Remove Subgroup"><button id="kitproduct_option_{{parentIndex}}_del_sub" title="Remove Subgroup" type="button" class="scalable delete right" onclick="bSelection.removeSubgroup(this);" style=""><span><span><span>Remove Subgroup</span></span></span></button></span>'+
+    '<div id="<?php echo $this->getFieldId() ?>_sub_{{parentIndex}}_{{index}}"></div>';
+kitproductTemplateBox +=
+    '<input type="hidden" name="kitproduct_selections[{{parentIndex}}][{{index}}][selection_id]"    value="{{selection_id}}" />' +
+    '<input type="hidden" name="kitproduct_selections[{{parentIndex}}][{{index}}][delete]"   class="delete" />' +
+    '<input type="hidden" name="kitproduct_selections[{{parentIndex}}][{{index}}][products]" id="kitproduct_selections_products_{{parentIndex}}_{{index}}" value="{{products}}" />';
+
+
+var kitproductTemplateRow ='<td>' +
+                '    <input type="hidden" id="<?php echo $this->getFieldId() ?>_id_{{index}}" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][selection_id]" value="{{selection_id}}">' +
+                '    <input type="hidden" id="<?php echo $this->getFieldId() ?>_id_{{index}}" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][index]" value="{{index}}">' +
+                '    <input type="hidden" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][option_id]" value="{{option_id}}">' +
+                '    <input type="hidden" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][product_id]" class="option_product_id" value="{{product_id}}"  >' +
+                '    <input type="hidden" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][delete]"  class="delete">' +
+
+                '    <input type="text" placeholder="Title" class="required-entry" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][title]"    value="{{title}}"    autocomplete="off" >' +
+                '    <input type="text" placeholder="Position"                     name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][position]" value="{{position}}" autocomplete="off" >' +
+                '    <input type="text" placeholder="Price" class="required-entry" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][price]"    value="{{price}}"    autocomplete="off" >&nbsp;' +
+
+                '    <select name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][depends_on]">{{depends_on_options}}</select>  ' +
+/*
+    'Image:<span style="width:700px;"><img width=16 height=auto style="border: 1px solid #808080" src="{{image}}"/>' +
+                '<input type="file" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][image]"/>&nbsp;' +
+
+    'Icon:<img width=16 height=auto style="border: 1px solid #808080" src="{{icon}}"/>' +
+    '<input type="file" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][icon]"/></span>'+
+*/
+    '<span title="Delete Row"><?php echo $this->getSelectionDeleteButtonHtml() ?></span>';
+
+KitProduct.Selection = Class.create();
+KitProduct.Selection.prototype = {
+    idLabel : '<?php echo $this->getFieldId() ?>',
+    index: 0,
+    opt_index: 0,
+    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+    templateBox : '',
+    templateRow : '',
+    itemsCount : 0,
+    row : null,
+
+
+    initialize : function() {
+        this.templateBox = '<div class="form-list subgroup-box2"  style="padding: 5px;border: 1px solid grey !important;    margin: 7px 0px;" id="' + this.idLabel + '_box_{{parentIndex}}">' + kitproductTemplateBox + '</div>';
+
+        this.templateRow = '<div class="selection" style="margin: 5px;background-color: #D8D8D8;     padding: 5px;" id="' + this.idLabel + '_row_{{index}}">' + kitproductTemplateRow + '</div>';
+    },
+
+    // add option
+    addRow : function (parentIndex, index, data2) {
+        var box = null;
+        if (!(box = $(this.idLabel + '_sub_' + parentIndex + '_'+index))) {
+            this.addBox(parentIndex);
+            box = $(this.idLabel + '_sub_' + parentIndex + '_'+index);
+        } else {
+            box.show();
+        }
+
+        var data = {'parentIndex' : parentIndex,'index':index,'opt_index':this.opt_index};
+
+
+        this.template = new Template(this.templateRow, this.templateSyntax);
+
+        data = KitProduct.mergeObjects(data, data2);
+
+        Element.insert(box, {'bottom':this.template.evaluate(data)});
+        this.opt_index++;
+
+    },
+
+
+    // add subgroup
+    addBox : function (parentIndex, data2) {
+
+        var div = $(bOption.idLabel + '_' + parentIndex)
+        this.template = new Template(this.templateBox, this.templateSyntax);
+        var data = {'parentIndex' : parentIndex,'index':this.index};
+
+        data = KitProduct.mergeObjects(data, data2);
+
+        Element.insert(div, {'bottom':this.template.evaluate(data)});
+
+        var prevIndex = this.index;
+        this.index++;
+        return prevIndex;
+    },
+
+    removeSubgroup : function(sender){
+        var element = sender.up(1);
+
+        if ( element )
+        if ( element.hasClassName('subgroup-box2') )
+        {
+            Element.select(element, '.delete').each(function(elem){elem.value='1'});
+            Element.hide(element);
+        }
+    },
+
+    removeOption : function(sender){
+        var element = sender.up(1);
+
+        if ( element )
+        if ( element.hasClassName('selection') )
+        {
+            Element.select(element, '.delete').each(function(elem){elem.value='1'});
+            Element.hide(element);
+        }
+    }
+    /*
+    removeOption : function(parentIndex,index,option_index) {
+        var element = Event.findElement(event, 'div.grid');
+
+        var parts = element.id.split('_');
+        $(bOption.idLabel + '_' + parts[3] + '_add_button').show();
+        var element = Event.findElement(event, 'tr');
+        var container = Event.findElement(event, 'div');
+
+        if (element) {
+
+            Element.removeClassName(element, 'selection');
+            Element.hide(element);
+
+            if (container) {
+                if ($$('#' + container.id + ' tr.selection')) {
+                    if (!$$('#' + container.id + ' tr.selection').length) {
+                        container.hide();
+                    }
+                }
+            }
+        }
+    }
+    */
+
+
+}
+
+bSelection = new KitProduct.Selection();
+// opt.phtml
+//]]>
+</script>

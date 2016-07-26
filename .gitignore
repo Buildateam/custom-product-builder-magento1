@@ -52,6 +52,24 @@
 !app/design/frontend/base/default/template/kitproduct/*/*/*/*/*
 !app/design/frontend/base/default/template/kitproduct/*/*/*/*/*/*
 
+!app/design/adminhtml
+!app/design/adminhtml/default
+!app/design/adminhtml/default/default
+!app/design/adminhtml/default/default/layout
+!app/design/adminhtml/default/default/layout/kitproduct.xml
+
+!app/design/adminhtml
+!app/design/adminhtml/default
+!app/design/adminhtml/default/default
+!app/design/adminhtml/default/default/template
+!app/design/adminhtml/default/default/template/kitproduct
+!app/design/adminhtml/default/default/template/kitproduct/*
+!app/design/adminhtml/default/default/template/kitproduct/*/*
+!app/design/adminhtml/default/default/template/kitproduct/*/*/*
+!app/design/adminhtml/default/default/template/kitproduct/*/*/*/*
+!app/design/adminhtml/default/default/template/kitproduct/*/*/*/*/*
+!app/design/adminhtml/default/default/template/kitproduct/*/*/*/*/*/*
+
 !skin
 !skin/frontend
 !skin/frontend/base
