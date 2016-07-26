@@ -1,0 +1,181 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<script src="/js/iloveugly/jquery.reel.js"></script>
+
+<?php
+    $_product   			= $this->getProduct();
+    $_product_sku   		= $_product->getSku();
+    $_helper    			= $this->helper('catalog/output');
+    $_gallery   			= $this->getGalleryImages();
+    $_imgX                  = 541;
+    $_imgY                  = 300;
+
+    $_media_url             = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); 
+    $_product_reel_base		= $_media_url.'reel/'.$_product_sku;
+    $_product_reel_img		= $_product_reel_base.'/01.jpg';
+    $_product_size_img		= $_product_reel_base.'/size.jpg';
+
+?>
+
+<div class="product-spin-tabs">
+    <div class="bs-example product-tabs-3">
+        <ul class="nav nav-tabs" id="spin-tab-holder"> 
+            <li class="active"><a href="#spinner" data-toggle="tab" id="spinTab">Spinner</a></li>                        
+            <li><a href="#sizing" data-toggle="tab fade" id="sizeTab">Size Chart</a></li>
+            <li><a href="#images" data-toggle="tab" id="imageTab">Images</a></li>
+        </ul>
+
+        <div id="myTabContent3" class="tab-content">
+            <div class="tab-pane active" id="spinner">
+            	<img src="<?php echo $_product_reel_img ?>" width="<?php echo $_imgX ?>" height="<?php echo $_imgY ?>"
+				    class="reel"
+				    id="image"
+				    data-cw="true"
+				    data-images="<?php echo $_product_reel_base ?>/##.jpg|01..36"
+				    data-responsive="true"
+				    data-throwable="false"
+				>
+            </div>
+
+            <div class="tab-pane" id="sizing">
+            	<img src="<?php echo $_product_size_img ?>" width="<?php echo $_imgX/4 ?>" height="<?php echo $_imgY/4 ?>" id="sizeTrigger" />
+            </div>
+
+            <div class="tab-pane" id="images">
+                <img src="" id="bigImageTarget">
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+<div class="iossliderwrapper">
+	<div class="iosslider" id="productDetailsCarousel">
+	    <div class="slider">
+
+	    	<!-- First Slide Hard-Coded as the Reel Img -->
+	    	<div class="slide">
+	        	<img src="<?php echo $_product_reel_img ?>" width="<?php echo $_imgX/4 ?>" height="<?php echo $_imgY/4 ?>" id="spinTrigger" />
+	        </div>
+
+	<?php   if (count($this->getGalleryImages()) > 0): 
+	            $i = 1;
+	            foreach ($this->getGalleryImages() as $_image): 
+	            	$_gallery_image_label   = $_image->getLabel();
+                    if($_gallery_image_label != 'category-only') :
+		                ++$i; 
+
+		            	if ($i == 2) {
+		            		continue;
+		            	} ?>
+		                <div class="slide">
+		                    <img class="slideThumb" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_imgX/4,$_imgY/4); ?>" width="<?php echo $_imgX/4 ?>" height="<?php echo $_imgY/4 ?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-hq="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_imgX,$_imgY); ?>" />
+		                </div>
+	<?php       	endif;
+				endforeach; 
+	        endif;              ?>
+
+	    </div>
+	    <ul class="slide-selectors">
+	    		<li class="slide-selector slide-selector-1"></li>
+	        <?php $i=1; 
+	        foreach ($this->getGalleryImages() as $_image): ++$i; ?>
+	        	<li class="slide-selector slide-selector-<?php echo $i ?>"></li>
+	        <?php endforeach; ?> 
+	    </ul>        
+	</div>
+	<a class="slider-control" id="productDetailsCarousel-next"><i class="glyphicon glyphicon-chevron-left"></i></a>
+	<a class="slider-control" id="productDetailsCarousel-prev"><i class="glyphicon glyphicon-chevron-right"></i></a>
+</div>
+
+
+
+
+<script>
+function tabOpen(tabId){
+	jQuery('#spin-tab-holder a#'+tabId).tab('show');
+}
+
+/** Spinner **/
+function oneSpin(){
+	jQuery('#image')
+		.trigger('play','0.3')
+		.bind('frameChange', function(e, depr_frame, frame){
+		    if (frame == 1){
+		        jQuery(this).trigger('stop');
+		    }
+		});
+}
+
+/** Slider **/
+jQuery(document).ready(function() {
+
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		var mobile = true;
+	} else {
+		var mobile = false;
+	}
+
+	jQuery('.iosslider').iosSlider({
+		navPrevSelector:"#productDetailsCarousel-next",
+		navNextSelector:"#productDetailsCarousel-prev",
+		infiniteSlider: "true",
+		snapToChildren: true
+	});
+
+	
+		jQuery("#image").bind("loaded", function(ev){
+			if (mobile == false) {
+	    		jQuery('#image-reel .reel-preloader').fadeOut('slow', function(){jQuery('#image').fadeIn('2000', oneSpin)});
+	    	} else {
+	    		jQuery('#image-reel .reel-preloader').fadeOut('slow', function(){jQuery('#image').fadeIn('2000')});
+	    	}
+		});
+
+});
+
+jQuery('#productDetailsCarousel .slide img.slideThumb').click(function(){
+    var hq = jQuery(this).attr('data-hq');
+    jQuery('#bigImageTarget').attr('src',hq);
+    tabOpen('imageTab');
+});
+
+jQuery('#productDetailsCarousel .slide img#spinTrigger').click(function(){
+	tabOpen('spinTab');
+});
+
+jQuery('#sizeTrigger').click(function(){
+	tabOpen('sizeTab');
+});
+</script>

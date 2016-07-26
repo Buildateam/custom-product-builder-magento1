@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <ma_customizer_index_index>
+        <reference name="head">
+            <block type="core/text" name="foundation_css">
+                <action method="setText"><text><![CDATA[<link href="//cdn.jsdelivr.net/foundation/6.0.5/foundation.min.css" rel="stylesheet" type="text/css" id="foundation_css">]]></text></action>
+            </block>
+            <block type="core/text" name="fonts_google_css">
+                <action method="setText"><text><![CDATA[<link href="//fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet" type="text/css" id="fonts_google_css">]]></text></action>
+            </block>
+            <block type="core/text" name="foundation_js">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="//cdn.jsdelivr.net/foundation/6.0.5/foundation.min.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/text" name="app.js">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="/skin/frontend/base/default/customizer_demo/app.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="ma_customizer.index" template="magentoaid/customizer/index.phtml"/>
+        </reference>
+    </ma_customizer_index_index>
+</layout>

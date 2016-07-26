@@ -1,0 +1,272 @@
+<?php
+/**
+ * @var $this        Mage_Catalog_Block_Product_View_Media
+ * @var $_product    Mage_Catalog_Model_Product
+ */
+?>
+<?php
+$mediaWidth = 0;
+$outputHelper = $this->helper('catalog/output');
+$helper = $this->helper('shoppersettings/image');
+$config = Mage::getStoreConfig('shoppersettings');
+
+$_product = $this->getProduct();
+$_product_name = $_product->getName();
+$_product_type = $_product->getTypeId();
+$_is_bundle = $_product_type == 'bundle' ? true : false;
+$_media_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+$_product_sku = $_product->getSku();
+
+
+list($defaultImgX, $defaultImgY) = $helper->getDefaultSize();
+list($imgX, $imgY) = $helper->getMainSize();
+if ($imgX > 600) {
+    $imgX = 600;
+    $imgY = $helper->calculateHeight($imgX);
+}
+list($thumbX, $thumbY) = $helper->getThumbSize();
+
+//cloud Zoom config
+$config['cloudzoom']['position'] = empty($config['cloudzoom']['position'])
+    ? 'right' : $config['cloudzoom']['position'];
+$config['cloudzoom']['lens_opacity']
+    = intval($config['cloudzoom']['lens_opacity']) / 100;
+$config['cloudzoom']['tint_opacity']
+    = intval($config['cloudzoom']['tint_opacity']) / 100;
+if (empty($config['cloudzoom']['big_image_width'])
+    || empty($config['cloudzoom']['big_image_height'])
+) {
+    if (empty($config['cloudzoom']['big_image_width'])
+        || $config['cloudzoom']['big_image_width'] > 1200
+    ) {
+        $config['cloudzoom']['big_image_width'] = 1200;
+    }
+    if (empty($config['cloudzoom']['big_image_height'])) {
+        $config['cloudzoom']['big_image_height'] = $this->helper(
+            'shoppersettings/image'
+        )->calculateHeight($config['cloudzoom']['big_image_width']);
+    }
+}
+?>
+
+
+<div id="cloudNext" class="glyphicon glyphicon-circle-arrow-right"></div>
+<div id="cloudPrev" class="glyphicon glyphicon-circle-arrow-left"></div>
+
+<?php if ($config['cloudzoom']['position'] == 'inside') : ?>
+    <style>
+        .cloud-zoom-big {
+            margin: 0;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    </style>
+<?php endif; ?>
+
+
+<?php
+$_gallery = $this->getGalleryImages();
+$_gallery_count = count($this->getGalleryImages());
+if ($_gallery_count > 0):
+    $thumbX = 50;
+    $thumbY = 89;
+    $_oversize = true;
+    $wrapWidth = ceil($_gallery_count / 4) * ($thumbX + 5);
+    ?>
+
+<div class="more-views als-container" id="thumbs"
+     style="width: <?php echo $wrapWidth ?>px">
+
+    <?php if ($_is_bundle) : ?>
+    <div id="bundle-tab-container">
+    <!-- Nav Tabs -->
+    <ul class="nav-tabs">
+        <?php
+        $_current_label = '';
+        foreach ($_gallery as $_image):
+            $_image_label = $_image->getLabel();
+            $_image_label_code = trim(
+                strtolower(str_replace(' ', '-', $_image->getLabel()))
+            );
+            if ($_current_label != $_image_label) :  ?>
+                <li><a id="tab-nav_<?php echo $_image_label_code ?>"
+                       href="#tab_<?php echo $_image_label_code ?>"
+                       data-toggle="tab"><?php echo $_image_label ?></a></li>
+                <?php   $_current_label = $_image_label;
+            endif;
+        endforeach;
+        ?>
+    </ul>
+    <div class="tab-content">
+<?php endif;
+
+if ($_is_bundle && $_current_label != $_image_label) :
+if ($_current_label != '') : ?>
+    </ul>
+    </div>
+    <?php endif ?>
+    <div id="tab_<?php echo $_image_label_code ?>" class="tab-pane fade">
+    <ul class="thumbnail-wrapper oversize">
+    <?php       $_current_label = $_image_label;
+    elseif (!$_is_bundle) : ?>
+    <ul class="thumbnail-wrapper<?php if ($_oversize) { ?> oversize<?php } ?>">
+<?php endif; ?>
+
+    <?php
+    $_i = 0;
+    $_current_label = '';
+    foreach ($_gallery as $_image):
+        $_i++;
+        $_image_file = $_image->getFile();
+        $_image_label = $_image->getLabel();
+        $_image_label_code = trim(
+            strtolower(str_replace(' ', '-', $_image->getLabel()))
+        );
+
+        if ($_image_file == null) {
+            continue;
+        } ?>
+        <li class="als-item">
+            <a href='<?php echo $this->helper('catalog/image')->init(
+                $_product, 'image', $_image_file
+            )->resize(
+                $config['cloudzoom']['big_image_width'],
+                $config['cloudzoom']['big_image_height']
+            ); ?>' class='cloud-zoom-gallery czGal' title='<?php echo $_i; ?>'
+               rel="useZoom: 'cloud_zoom', smallImage: '<?php echo $this->helper(
+                   'catalog/image'
+               )->init($_product, 'image', $_image_file)->resize(
+                   $imgX, $imgY
+               ); ?>' "
+               relx2="useZoom: 'cloud_zoom', smallImage: '<?php echo $this->helper(
+                   'catalog/image'
+               )->init($_product, 'image', $_image_file)->resize(
+                   $imgX * 2, $imgY * 2
+               ); ?>' ">
+                <img class="NOTretina-swappable"
+                     src="<?php echo $this->helper('catalog/image')->init(
+                         $_product, 'thumbnail', $_image_file
+                     )->resize($thumbX, $thumbY); ?>"
+                     data-srcX2="<?php echo $this->helper('catalog/image')
+                         ->init($_product, 'thumbnail', $_image_file)->resize(
+                         $thumbX * 2, $thumbY * 2
+                     ); ?>" width="<?php echo $thumbX ?>"
+                     height="<?php echo $thumbY ?>"
+                     alt="<?php echo $_image_label ?>"/>
+            </a>
+        </li>
+
+    <?php endforeach; ?>
+    </ul>
+    <?php if ($_is_bundle) : ?>
+    </div>
+    </div>
+    </div>
+<?php endif ?>
+
+
+    </div>
+
+
+<?php endif; ?>
+
+<div class="product-image">
+    <?php if ($_product->getImage() != 'no_selection' && $_product->getImage()):
+
+        $cloudZoom = array(
+            "position:'" . $config['cloudzoom']['position'] . "'",
+            "showTitle:false",
+            "lensOpacity:" . $config['cloudzoom']['lens_opacity'],
+            "smoothMove:" . $config['cloudzoom']['smooth_move'],
+        );
+        if ($config['cloudzoom']['zoom_width'] > 0) {
+            $cloudZoom[] = "zoomWidth:" . $config['cloudzoom']['zoom_width'];
+        }
+        if ($config['cloudzoom']['zoom_height'] > 0) {
+            $cloudZoom[] = "zoomHeight:" . $config['cloudzoom']['zoom_height'];
+        }
+
+        if ($config['cloudzoom']['tint_color']) {
+            $cloudZoom[]
+                =
+                "tint:'" . $config['cloudzoom']['tint_color'] . "',tintOpacity:"
+                . $config['cloudzoom']['tint_opacity'];
+        }
+        if ($config['cloudzoom']['soft_focus'] > 0) {
+            $cloudZoom[] = "softFocus:" . $config['cloudzoom']['soft_focus'];
+        }
+
+
+        ?>
+        <a href="<?php echo $this->helper('catalog/image')->init(
+            $_product, 'image'
+        )->resize(
+            $config['cloudzoom']['big_image_width'],
+            $config['cloudzoom']['big_image_height']
+        ); ?>" class="cloud-zoom" id="cloud_zoom"
+           rel="<?php echo implode($cloudZoom, ','); ?>">
+            <img src="<?php echo $this->helper('catalog/image')->init(
+                $_product, 'image'
+            )->resize($imgX, $imgY); ?>"
+                 data-srcX2="<?php echo $this->helper('catalog/image')->init(
+                     $_product, 'image'
+                 )->resize($imgX * 2, $imgY * 2); ?>"
+                 alt="<?php echo $this->escapeHtml($this->getImageLabel()); ?>"
+                 title="<?php echo $this->escapeHtml(
+                     $this->getImageLabel()
+                 ); ?>" width="<?php echo $imgX; ?>"
+                 height="<?php echo $imgY; ?>"/>
+        </a>
+    <?php
+    else:
+
+        $_img = '<img src="' . $this->helper('catalog/image')->init(
+                $_product, 'image'
+            )->resize($imgX, $imgY) . '" data-srcX2="' . $this->helper(
+                'catalog/image'
+            )->init($_product, 'image')->resize($imgX * 2, $imgY * 2)
+            . '" alt="' . $this->escapeHtml($this->getImageLabel())
+            . '" title="' . $this->escapeHtml($this->getImageLabel())
+            . '" width="' . $imgX . '" height="' . $imgY . '" />';
+        echo $outputHelper->productAttribute($_product, $_img, 'image');
+
+    endif; ?>
+</div>
+
+<?php $mediaWidth = $wrapWidth + 215;
+$this->setMediaWidth($mediaWidth);
+?>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery(document).ready(function () {
+            cloudZoom = jQuery('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+        });
+    });
+
+    jQuery("#cloudNext").die();
+    jQuery("#cloudPrev").die();
+    jQuery("#cloudNext").live("click", function () {
+        var current = jQuery('#cloud_zoom').attr("href");
+        var tmp = jQuery('a.cloud-zoom-gallery[href="' + current + '"]').parent().next().find('a');
+
+        if (tmp.length) {
+            tmp.click();
+        }
+        else {
+            //alert('no more next');
+        }
+    });
+
+    jQuery("#cloudPrev").live("click", function () {
+        var current = jQuery('#cloud_zoom').attr("href");
+        var tmp = jQuery('a.cloud-zoom-gallery[href="' + current + '"]').parent().prev().find('a');
+
+        if (tmp.length) {
+            tmp.click();
+        }
+        else {
+            //alert('no more prev');
+        }
+    });
+</script>

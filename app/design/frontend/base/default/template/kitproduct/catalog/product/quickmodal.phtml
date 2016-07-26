@@ -1,0 +1,159 @@
+<?php
+$_product = $this->getProduct();
+$_now                   = date('Y-m-d');
+$_max_featured          = 2;
+$_video_types           = array('mp4','webm');
+$_product_description   = $_product->getDescription();
+$_product_id            = $_product->getId();
+$_product_name          = $this->stripTags($_product->getName(), null, true);
+$_product_sku           = $_product->getSku();
+$_product_url           = $_product->getProductUrl();
+$_product_model         = $_product->getAttributeText('x_product_model');
+$_product_fabric        = $_product->getAttributeText('size_chart_template');
+$_product_size_tab      = $this->getLayout()->createBlock('cms/block')->setBlockId($_product_fabric)->toHtml();
+$_spin_media            = $_product->getAttributeText('x_prodmediaspin') == 'Yes' ? true : false;
+$_product_sku   = $_product->getSku();
+//$_product_video = $_product->getProductVideo();
+// Product New?
+$_is_new              = false;
+if($_now >= substr($_product->getData('news_from_date'),0,10) && $_now<=substr($_product->getData('news_to_date'),0,10)) :
+    $_is_new = true;
+endif;
+// On Sale?
+$_product_price       = $_product->getPrice();
+$_product_final_price = $_product->getFinalPrice();
+$_is_sale             = false;
+if($_product_price > $_product_final_price) :
+    $_is_sale = true;
+endif;
+$i              = 0;
+$_helper        = $this->helper('catalog/output');
+$blockMedia =  $this->getLayout()->createBlock(
+    'catalog/product_view_media', 'media'
+)->setTemplate(
+    'kitproduct/catalog/product/productmodal/cloudzoom/media.phtml'
+)->setProduct($_product);
+$blockTabs =  $this->getLayout()->createBlock(
+    'catalog/product_view_tabs', 'tabs'
+)->setTemplate(
+    'kitproduct/catalog/product/productmodal/tabs.phtml'
+)->setProduct($_product);
+$mediaHtml = $blockMedia->toHtml();
+$mediaWidth = $blockMedia->getMediaWidth();
+$mediaHeight = 400;
+?>
+<div id="quickViewModal" tabindex="-1" role="dialog" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="min-width: 700px; padding: 0">
+        <div class="kit-modal-content">
+            <div class="modal-bg"> </div>
+            <div class="modal-body">
+                <button type="button" class="close" onclick="zipMe('kitproudct-quickview-popup');$('kit_overlay').hide();" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div class="product-view">
+                    <div class="left card-container" id="kit-card-container"  style="width: <?php echo $mediaWidth?>px;height: <?php echo $mediaHeight?>px">
+                        <div class="card">
+                            <div class="front" style="width: <?php echo $mediaWidth?>px;height: <?php echo $mediaHeight?>px">
+                                <div class="product-img-box <?php if($_spin_media) { ?> product-img-box-spin<?php } ?>"  style="width: <?php echo $mediaWidth?>px;height: <?php echo $mediaHeight?>px">
+                                    <?php echo $mediaHtml; ?>
+                                </div>
+                            </div>
+                            <?php if($_product_size_tab) : ?>
+                                <div class="back">
+                                    <div class="product-size-box">
+                                        <div class="flip-sizing-back"><span class="glyphicon glyphicon-refresh"></span><span> <?php echo $this->__('FLIP BACK'); ?></span></div>
+                                        <?php echo $_product_size_tab ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="right" style="width: <?php echo 795-$mediaWidth;?>px">
+                        <div class="product-details product-shop">
+                            <a class="product-name" href="javascript:void(0)">
+                                    <h1 style="margin-top: 0px;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                            </a>
+                                <div class="product-price clearfix">
+                                    <h2 class="price-box">
+                                <span class="regular-price">
+                                    <?php echo Mage::helper('core')->currency($_product->getFinalPrice(), true, true);?>
+                                </span>
+
+                                    </h2>
+                                </div>
+                                <!--<div class="product-desc"><?php /*echo $_product->getDescription();*/?></div>-->
+                            <?php echo $blockTabs->toHtml();?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="kit-modal-bottom">
+                    <button type="button" id="kit-modal-button-close" onclick="zipMe('kitproudct-quickview-popup');$('kit_overlay').hide();" class="btn button btn-cart btn-success"><span><span>CLOSE</span></span></button>
+                </div>
+            </div>
+                   </div>
+        </div>
+</div>
+
+<script type="text/javascript">
+    // Size Converter
+    function roundToHalf(e) {
+        var t = parseFloat(e);
+        var n = t - parseInt(t, 10);
+        n = Math.round(n * 10);
+        if (n == 5) {
+            return parseInt(t, 10) + .5
+        }
+        if (n < 3 || n > 7) {
+            return Math.round(t)
+        } else {
+            return parseInt(t, 10) + .5
+        }
+    }
+    var measureunit = "cm";
+        jQuery(".sizeinch").css("cursor", "pointer");
+        jQuery(".sizecm").css("cursor", "pointer");
+        jQuery(".sizecm").addClass("invert badge");
+        jQuery(".sizeinch").click(function() {
+            if (measureunit == "inch") {
+            } else {
+                jQuery(".sizecm").removeClass("invert badge");
+                jQuery(".sizeinch").addClass("invert badge");
+                jQuery(".measurements").each(function() {
+                    jQuery(this).text(roundToHalf(parseFloat(jQuery(this).text()) / 2.54));
+                    measureunit = "inch"
+                });
+            }
+        });
+        jQuery(".sizecm").click(function() {
+            if (measureunit == "cm") {} else {
+                jQuery(".sizeinch").removeClass("invert badge");
+                jQuery(".sizecm").addClass("invert badge");
+                jQuery(".measurements").each(function() {
+                    jQuery(this).text(roundToHalf(parseFloat(jQuery(this).text()) * 2.54));
+                    measureunit = "cm"
+                })
+            }
+        });
+        $('KITmyTabContent').style.width= $$('#quickViewModal .right').first().getWidth()+30+'px';
+
+    // Flipcard Logic for the Sizing Guide
+    jQuery('#KITsizeTab').click(function(e) {
+        if(jQuery('#kit-card-container .product-size-box img').length) {
+            jQuery('#kit-card-container').not('.flipped').flip({
+                direction: 'lr'
+            });
+            jQuery('#kit-card-container').addClass('flipped');
+        }
+    });
+    jQuery('.flip-sizing-back,.product-tabs-1 li a').not('#KITsizeTab').click(function(e){
+        jQuery('#kit-card-container.flipped').flip({
+            direction: 'rl'
+        })
+        jQuery('#kit-card-container').removeClass('flipped');
+    });
+        if (jQuery('#sizing table').length) {
+            jQuery('#sizing table').addClass('table table-striped table-bordered table-hover sizetable measurements-table');
+        }
+</script> 

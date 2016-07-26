@@ -1,0 +1,350 @@
+<?php
+    $_helper            = $this->helper('catalog/output');
+    $_product           = $this->getProduct();
+    $_compareUrl        = $this->helper('catalog/product_compare')->getAddUrl($_product);
+    $_coreHelper        = Mage::helper('core');
+    $_taxHelper         = Mage::helper('tax');
+    $price_array        = array();
+    $product_ids        = $_product->getTypeInstance()->getChildrenIds($_product->getId());
+    foreach ($product_ids as $ids) {
+  		foreach ($ids as $id) {
+  					  $product = Mage::getModel('catalog/product')->load($id);
+  					  $price_array[] = $product->getFinalPrice();
+  		}
+    }
+
+    $_no_grouping           = $this->getData('no_grouping');
+    $_is_newin              = $this->getData('is_newin');
+    $_now                   = date('Y-m-d');
+    $_product_description   = $_product->getDescription(); 
+    $_product_id            = $_product->getId();
+    $_product_name          = $this->stripTags($_product->getName(), null, true);
+    $_product_sku           = $_product->getSku();
+    $_product_url           = $_product->getProductUrl();
+    $_product_model         = $_product->getAttributeText('x_product_model');
+    $_product_fabric        = $_product->getAttributeText('size_chart_template');
+    $_product_size_tab      = $this->getLayout()->createBlock('cms/block')->setBlockId($_product_fabric)->toHtml(); 
+    $_spin_media            = $_product->getAttributeText('x_prodmediaspin') == 'Yes' ? true : false;
+
+    // Product New?
+    $_is_new                = false;
+    if($_now >= substr($_product->getData('news_from_date'),0,10) && $_now<=substr($_product->getData('news_to_date'),0,10)) :
+        $_is_new = true;
+    endif;
+
+    // On Sale?
+    $_product_price         = $_product->getPrice();
+    $_product_final_price   = $_product->getFinalPrice();
+    $_is_sale               = false;
+    if($_product_price > $_product_final_price) :
+        $_is_sale = true;
+    endif;
+
+?>
+
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+    
+<div class="product-quickviewinner">
+    <a id="mcquickview-close" title="close" onclick="">
+      <span class="glyphicon glyphicon-remove"></span>
+    </a>
+    <div class="product-view<?php if($_spin_media) {?> product-view-spin<?php } ?>">
+        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="order-form"  <?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <div class="right">
+                <div class="product-shop">
+                    <?php $specialprice = $_product->getSpecialPrice(); ?>
+                    <?php if ($specialprice): ?>
+                        <!-- Sale Warning -->
+                        <img src="http://i.imgur.com/ioy9ok4.png" style="position:absolute;top:40px;right:0px;">
+                    <?php else : ?>
+                        <!-- Badge Promo Block -->
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_page_badge')->toHtml(); ?>
+                    <?php endif; ?>
+
+                    <a class="product-name" href="<?php echo $_product_url ?>" title="<?php echo $_product_name ?>">
+                        <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                    </a>
+
+                    <?php echo $this->getChildHtml('product_type_data'); ?>
+
+                    <div class="productOptions">                       
+                        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="order-form"  <?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                            <?php if($_product->isSaleable()): ?>
+                                <?php if($this->hasOptions()): ?>
+                                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                                    <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                                <?php else : ?>
+                                    <?php echo $this->getChildHtml('addtocart') ?>
+                                <?php endif; ?>                                
+                            <?php endif; ?>
+                        </form>
+                    </div>
+                    <!-- Inject One Click Checkout - NEXT RELEASE - Temp Commented Out -->
+                    <?php // echo $this->getLayout()->createBlock('occ/occ','occ')->setTemplate('occ/occ_address.phtml')->toHtml();?>
+                </div>
+                <div class="product-additional">                    
+                    <!-- Accordion Start -->
+                    <?php echo $this->getChildHtml('product_additional_data') ?>
+                    <!-- Accordion End -->
+                </div>
+                <div class="product-links">
+                    <a href="<?php echo $_product_url ?>" title="<?php echo $_product_name ?>" class="button"><?php echo $this->__('FULL DETAILS') ?></a>
+                    <div class="squiggle"></div>
+                </div>                
+            </div>
+
+            <div class="left card-container" id="qv-card-container">
+                <div class="card">
+                    <div class="front">
+                        <div class="product-img-box<?php if($_spin_media) { ?> product-img-box-spin<?php } ?>">
+                            <?php echo $this->getChild('media')->setProduct($_product)->toHtml(); ?>
+                        </div>
+                    </div>
+                    <?php if($_product_size_tab) : ?>
+                        <div class="back">
+                            <div class="product-size-box">
+                                <div class="flip-sizing-back"><span class="glyphicon glyphicon-refresh"></span><span> <?php echo $this->__('FLIP BACK'); ?></span></div>
+                                <?php echo $_product_size_tab ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </form>
+    </div>    
+</div>  
+<script type="text/javascript">
+    // Adjust the sizing of the RIGHT column DIVs.
+    jQuery(document).ready(function() {
+        // Set the height of Product-Additional (the tabs) to be the slave adjuster!
+        maxHeight               = jQuery('#mcquickview .right').height();
+        productshopHeight       = jQuery('#mcquickview .right .product-shop').height();
+        productlinksHeight      = jQuery('#mcquickview .right .product-links').height();
+        productadditionalHeight = maxHeight - productshopHeight - productlinksHeight
+        jQuery('#mcquickview .right .product-additional').height(productadditionalHeight);
+        
+        // Now set the internal height of the Tab Content to flow correctly.
+        tabsulHeight            = jQuery('#mcquickview .right .product-additional .bs-example .nav-tabs').height();  
+        jQuery('#mcquickview .right .product-additional .bs-example .tab-content').height(productadditionalHeight - tabsulHeight);
+
+        console.log('Max: '+maxHeight);
+        console.log('Shop: '+productshopHeight);
+        console.log('Links: '+productlinksHeight);
+        console.log('Additional: '+productadditionalHeight);
+        console.log('Tabs: '+productadditionalHeight);        
+        console.log('Content: '+jQuery('#mcquickview .right .product-additional .bs-example .tab-content').height());
+
+    });
+
+    // Trigger CloudZoom for Dynamic Content
+    jQuery(document).ready(function() {
+        jQuery('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+    });
+
+    // Ripped from Script7 to run on Ajax load... Product Page Table Styling (so we don't have to add it to all the blocks!)
+    if (jQuery('#sizing table').length) {
+        jQuery('#sizing table').addClass('table table-striped table-bordered table-hover sizetable measurements-table');
+    }
+    // Size Converter
+    function roundToHalf(e) {
+        var t = parseFloat(e);
+        var n = t - parseInt(t, 10);
+        n = Math.round(n * 10);
+        if (n == 5) {
+            return parseInt(t, 10) + .5
+        }
+        if (n < 3 || n > 7) {
+            return Math.round(t)
+        } else {
+            return parseInt(t, 10) + .5
+        }
+    }
+    var measureunit = "cm";
+    var isInIFrame = window.location != window.parent.location ? true : false;
+    jQuery(document).ready(function(e) {
+        e(".sizeinch").css("cursor", "pointer");
+        e(".sizecm").css("cursor", "pointer");
+        e(".sizecm").addClass("invert badge");
+        e(".sizeinch").click(function() {
+            if (measureunit == "inch") {
+
+            } else {
+                e(".sizecm").removeClass("invert badge");
+                e(".sizeinch").addClass("invert badge");
+                e(".measurements").each(function() {
+                    e(this).text(roundToHalf(parseFloat(e(this).text()) / 2.54));
+                    measureunit = "inch"
+                });
+            }
+        });
+        jQuery(".sizecm").click(function() {
+            if (measureunit == "cm") {} else {
+                e(".sizeinch").removeClass("invert badge");
+                e(".sizecm").addClass("invert badge");
+                e(".measurements").each(function() {
+                    e(this).text(roundToHalf(parseFloat(e(this).text()) * 2.54));
+                    measureunit = "cm"
+                })
+            }
+        });
+    });
+
+    // Ripped from Script7 to run on Ajax load... Video Buttons
+    jQuery(document).ready(function() {
+        if ( jQuery('#als-item_0_0 a').hasClass('czVideo') ) {
+            jQuery("ul li a.czGal img").click(function() {
+                var myPlayer = videojs("example_video_1");
+                myPlayer.pause();
+                jQuery('#example_video_1').hide();
+            });
+
+            jQuery("ul li a.czVideo span.videoPlay").click(function(e) {
+                e.preventDefault();
+                jQuery('#example_video_1').show();
+                var myPlayer = videojs("example_video_1");
+                myPlayer.pause();
+                myPlayer.currentTime(0);
+                myPlayer.play();
+            });
+        }
+    });
+
+    // Flipcard Logic for the Sizing Guide
+    jQuery('#tabSizingGuide').click(function(e) {
+        if(jQuery('#qv-card-container .product-size-box img').length) {
+            jQuery('#qv-card-container').not('.flipped').flip({
+                direction: 'lr'            
+            });
+            jQuery('#qv-card-container').addClass('flipped');
+        }
+    });
+    jQuery('.flip-sizing-back,.product-tabs-1 li a').not('#tabSizingGuide').click(function(e){
+        jQuery('#qv-card-container.flipped').flip({
+            direction: 'rl'
+        })
+        jQuery('#qv-card-container').removeClass('flipped');
+    });
+
+    // Replicate the CLOSE logic for dynamic div
+    jQuery("#mcquickview-close").click(function(){
+        if(selectItem != null){       
+            closeLightbox(); 
+            thisMgkviewlightbox = null;
+        }
+    }); 
+
+</script>
+
+<script type="text/javascript">
+    var productAddToCartForm = new VarienForm('order-form');
+    productAddToCartForm.submit = function(button, url) {
+        if (this.validator.validate()) {
+            var form = this.form;
+            var oldUrl = form.action;
+ 
+            if (url) {
+               form.action = url;
+            }
+ 
+            var e = null;
+            this.form.action = oldUrl;
+        form.submit();
+ 
+            if (e) {
+                throw e;
+            }
+ 
+            if (button && button != 'undefined') {
+                button.disabled = true;
+            }
+ 
+        return false;
+        }
+    }.bind(productAddToCartForm);
+</script>
+
+<script type="text/javascript">
+    var AW_AjaxCartProObserverObject = new AW_AjaxCartProObserver('clickOnAddToCartInQuickview');
+    Object.extend(AW_AjaxCartProObserverObject, {
+
+        uiBlocks: ['progress', 'options', 'add_confirmation'],
+
+        _oldSubmitFn: null,
+
+        run: function() {
+            var targetObj = this._getTargetObj();
+            if (!targetObj) {
+                return null;
+            }
+            this._oldSubmitFn = targetObj.form.submit;
+            targetObj.form.submit = this._observeFn.bind(this);
+            //HACK for EE
+            targetObj.form.select('button').each(function(btn){
+                btn.removeAttribute('disabled')
+            });
+            return null;
+        },
+
+        stop: function() {
+            var targetObj = this._getTargetObj();
+            if (!targetObj) {
+                return;
+            }
+            targetObj.form.submit = this._oldSubmitFn;
+        },
+
+        fireOriginal: function(url, parameters) {
+            var targetObj = this._getTargetObj();
+            if (!targetObj) {
+                return;
+            }
+            this.stop();
+            targetObj.submit();
+        },
+
+        _observeFn: function() {
+            var targetObj = this._getTargetObj();
+            if (!targetObj) {
+                return;
+            }
+            if (
+                targetObj.form.action.indexOf('wishlist/index/add') !== -1 ||
+                targetObj.form.action.indexOf('wishlist/index/updateItemOptions') !== -1 ||
+                targetObj.form.action.indexOf('checkout/cart/updateItemOptions') !== -1
+            ) {
+                this.stop();
+                targetObj.form.submit();
+                this.run();
+                return;
+            }
+            var action = targetObj.form.readAttribute('action') || '';
+            var params = targetObj.form.serialize(true);
+            this.fireCustom(action, params);
+        },
+
+        _getTargetObj: function() {
+            var targetObj = false;
+            if (typeof(productAddToCartFormOld) != 'undefined') {
+                targetObj = productAddToCartFormOld;
+            } else if (typeof(productAddToCartForm) != 'undefined') {
+                targetObj = productAddToCartForm;
+            }
+            if (!targetObj) {
+                return false;
+            }
+            return targetObj;
+        }
+    });
+    AW_AjaxCartPro.registerObserver(AW_AjaxCartProObserverObject);
+    delete AW_AjaxCartProObserverObject;
+    // Restart observers
+    AW_AjaxCartPro.stopObservers();
+    AW_AjaxCartPro.startObservers();
+</script>
+
+
+
+
+

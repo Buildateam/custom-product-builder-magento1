@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MagentoAid_Customizer>
+            <active>true</active>
+            <codePool>local</codePool>
+        </MagentoAid_Customizer>
+    </modules>
+</config>

@@ -1,0 +1,11 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Add to Cart'); 
+?>
+<?php if($_product->isSaleable()): ?>
+<button class="button btn-cart" title="Add to Cart" type="button" onclick="productAddToCartForm.submit(this)"><span><span class="glyphicon glyphicon-shopping-cart"></span><span><?php echo $buttonTitle ?></span></span></button>
+<div id="ajaxcarterror" class="ui-state-error"><p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                <strong> Error: </strong> <div id="ajaxmessage">Please specify the product's option(s).</div></p></div>
+<?php endif; ?>
+
+
+

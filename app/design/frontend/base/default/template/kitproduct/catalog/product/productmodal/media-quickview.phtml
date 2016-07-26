@@ -1,0 +1,98 @@
+<?php
+    $_product       = $this->getProduct();
+    $_product_sku   = $_product->getSku();
+    $_product_video = $_product->getProductVideo();   
+    $_now                 = date('Y-m-d');
+    
+    // Product New?
+    $_is_new              = false;
+    if($_now >= substr($_product->getData('news_from_date'),0,10) && $_now<=substr($_product->getData('news_to_date'),0,10)) :
+        $_is_new = true;
+    endif;
+
+    // On Sale?
+    $_product_price       = $_product->getPrice(); 
+    $_product_final_price = $_product->getFinalPrice(); 
+    $_is_sale             = false;
+    if($_product_price > $_product_final_price) :
+        $_is_sale = true;
+    endif;
+    
+    $_helper        = $this->helper('catalog/output');
+    $i              = 0;
+    $_imgX          = 200;
+    $_imgY          = 314;
+    $_media         = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+
+    $_images        = $_product->getMediaGalleryImages();
+    $_slide_count   = 0;
+?>
+<div class='iosslider' id="quickviewCarousel">
+    <div class='slider'>
+        <?php if($_product_video) : 
+            $_slide_count++; ?>
+            <div class="slide" style="width:<?php echo $_imgX ?>px; height:<?php echo $_imgY ?>px;">
+                <div id="video-wrapper"></div>
+                <script type="text/javascript">
+                    var videoHtml = '<video id="quickview-video" class="video-js vjs-default-skin" controls preload="auto" width="<?php echo $_imgX ?>" height="<?php echo $_imgY ?>" poster="" loop="true"><source src="<?php echo $_media ?>videos/<?php echo $_product_sku ?>.mp4" type="video/mp4" /></video>';
+                   
+                    if(typeof videoPlayer != "undefined") {
+                        console.log('disposing');
+                        jQuery('#video-wrapper').html('');                            
+                        videoPlayer.dispose();
+                    } 
+                    
+                    jQuery('#video-wrapper').append(videoHtml);
+                    var videoPlayer = videojs('quickview-video');
+                    videoPlayer.load().volume(0).play();                       
+                    
+
+                </script>
+
+            </div>
+        <?php endif ?>
+
+        <?php foreach($_images as $_image){ 
+            $_slide_count++; ?>
+            <div class='slide' style="width:<?php echo $_imgX ?>px; height:<?php echo $_imgY ?>px;">
+                <img src="<?php echo Mage::helper("catalog/image")->init($_product, "thumbnail",$_image->getFile())->resize($_imgX,$_imgY)?>" width="<?php echo $_imgX ?>" height="<?php echo $_imgY ?>" style="width:<?php echo $_imgX ?>px; height:<?php echo $_imgY ?>px;" />
+            </div>
+        <?php } ?>         
+    </div>
+    <?php if($_is_sale) :?>
+        <div class="promo promo-sale"><?php echo $this->__('SALE') ?></div>
+    <?php elseif($_is_new) :?>
+        <div class="promo promo-new"><?php echo $this->__('NEW') ?></div>
+    <?php endif; ?>           
+</div>
+<script type="text/javascript">
+    jQuery('#quickviewCarousel').iosSlider('destroy');
+</script>
+<?php 
+if( $_slide_count < 5 ) {  ?>
+    <script type="text/javascript">
+        jQuery('.product-img-box').addClass('short');
+    </script>
+<?php 
+}
+if( $_slide_count > 3 ) { ?>
+<!--    <div class='slider-control right next' id='#quickviewCarousel-next'>
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </div>
+    <div class='slider-control left prev' id='#quickviewCarousel-prev'>
+        <i class="i glyphicon glyphicon-chevron-left"></i>
+    </div> -->
+    <script type="text/javascript">          
+        jQuery('#quickviewCarousel').iosSlider({
+            snapToChildren: true,
+            desktopClickDrag: true,
+            infiniteSlider: true,
+            keyboardControls: true,         
+/*            navNextSelector: jQuery('#quickviewCarousel-next'),
+            navPrevSelector: jQuery('#quickviewCarousel-prev'),*/
+        }); 
+    </script>  
+
+<?php 
+}
+?>      

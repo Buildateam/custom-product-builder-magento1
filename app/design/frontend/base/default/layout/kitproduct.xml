@@ -1,0 +1,439 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is kitproductd with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+-->
+<layout version="0.1.0">
+
+<!--
+Adding custom product price block
+-->
+
+    <catalog_category_default>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_view>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_category_view>
+
+    <catalog_category_layered>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_category_layered>
+
+    <catalog_product_compare_index>
+        <reference name="catalog.compare.list">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_product_compare_index>
+
+    <catalogsearch_result_index>
+        <reference name="search_result_list">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalogsearch_result_index>
+
+    <catalogsearch_advanced_result>
+        <reference name="search_result_list">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalogsearch_advanced_result>
+
+    <tag_product_list>
+        <reference name="search_result_list">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </tag_product_list>
+
+    <tag_customer_view>
+        <reference name="customer_view">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </tag_customer_view>
+
+    <default>
+        <reference name="cart_sidebar">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
+        </reference>
+        <reference name="wishlist_sidebar">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+        <reference name="catalog_product_price_template">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </default>
+
+    <catalog_product_view>
+        <reference name="catalog.product.related">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_product_view>
+
+<!--
+Partof block for simple products
+-->
+
+   <PRODUCT_TYPE_simple>
+        <!--
+        <reference name="product.info.additional">
+
+            <block type="kitproduct/catalog_product_list_partof" before="-" name="product.info.partof" as="partof_products" template="kitproduct/catalog/product/list/partof.phtml">
+                <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+            </block>
+        -->
+        <reference name="product.info.upsell">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+            <action method="setItemLimit"><type>kitproduct</type><limit>4</limit></action>
+        </reference>
+    </PRODUCT_TYPE_simple>
+
+<!--
+Shopping cart item renderer (sidebar)
+-->
+
+    <customer_account>
+        <reference name="cart_sidebar">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
+        </reference>
+    </customer_account>
+
+<!--
+Shopping cart item renderer
+-->
+
+    <checkout_cart_index>
+        <reference name="checkout.cart">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/cart/item/default.phtml</template></action>
+        </reference>
+        <reference name="checkout.cart.crosssell">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/catalog/product/price.phtml</template></action>
+        </reference>
+    </checkout_cart_index>
+
+<!--
+Onepage Checkout Review Page
+-->
+
+    <checkout_onepage_review>
+        <reference name="root">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+        </reference>
+    </checkout_onepage_review>
+
+    <checkout_multishipping_addresses>
+        <reference name="checkout_addresses">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
+        </reference>
+    </checkout_multishipping_addresses>
+
+    <checkout_multishipping_shipping>
+        <reference name="checkout_shipping">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
+        </reference>
+        <reference name="checkout_billing_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
+        </reference>
+    </checkout_multishipping_shipping>
+
+    <checkout_multishipping_overview>
+        <reference name="checkout_overview">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/multishipping/item/default.phtml</template></action>
+        </reference>
+    </checkout_multishipping_overview>
+
+    <paypal_express_review>
+        <reference name="paypal.express.review.details">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+        </reference>
+    </paypal_express_review>
+    <paypal_express_review_details>
+        <reference name="root">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+        </reference>
+    </paypal_express_review_details>
+
+    <paypaluk_express_review>
+        <reference name="paypal.express.review.details">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+        </reference>
+    </paypaluk_express_review>
+    <paypaluk_express_review_details>
+        <reference name="root">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
+        </reference>
+    </paypaluk_express_review_details>
+
+<!--
+Additional block for kitproduct product type
+-->
+
+    <PRODUCT_TYPE_kitproduct translate="label" module="kitproduct">
+        <label>Catalog Product View (KitProduct)</label>
+        <remove name="product.info.options.wrapper.bottom" />
+        <remove name="description" />
+        <remove name="occ" />
+        <!--
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/kitproduct.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>css/kitproduct.css</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/reactjs/react.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/reactjs/react-dom.min.js</name></action>
+            <action method="addExternalItem"><type>external_js</type><name>https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js</name><params/></action>
+        </reference>
+        -->
+        <reference name="head">
+            <block type="core/text" name="foundation_css">
+                <action method="setText"><text><![CDATA[<link href="//cdn.jsdelivr.net/foundation/6.0.5/foundation.min.css" rel="stylesheet" type="text/css" id="foundation_css">]]></text></action>
+            </block>
+            <block type="core/text" name="fonts_google_css">
+                <action method="setText"><text><![CDATA[<link href="//fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet" type="text/css" id="fonts_google_css">]]></text></action>
+            </block>
+            <block type="core/text" name="foundation_js">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="//cdn.jsdelivr.net/foundation/6.0.5/foundation.min.js"></script>]]></text>
+                </action>
+            </block>
+            <action method="removeItem" ifconfig="zoom/general/enable"><type>skin_js</type><name>zoom/js/zoom.js</name></action>
+        </reference>
+        <reference name="product.info">
+            <action method="setTemplate"><template>kitproduct/catalog/product/view.phtml</template></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/text" name="app.js">
+                <action method="setText">
+                    <text><![CDATA[<script type="text/javascript" src="/skin/frontend/base/default/customizer_demo/app.js"></script>]]></text>
+                </action>
+            </block>
+        </reference>
+    </PRODUCT_TYPE_kitproduct>
+
+    <kitproduct_ajax_index_view>
+        <reference name="root">
+            <action method="setTemplate"><template>page/quickview.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <!--<action method="addJs"><script>varien/product.js</script></action>-->
+            <action method="addJs"><script>varien/configurable.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_view" name="product.info" template="kitproduct/catalog/product/productmodal/productview.phtml">
+                <block type="catalog/product_view_media" name="product.info.media" as="media" template="queldorei/cloudzoom/media.phtml"/>
+                <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label"><label>Alert Urls</label></block>
+                <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
+                <block type="core/text_list" name="product.info.extrahint" as="extrahint" translate="label"><label>Product View Extra Hint</label></block>
+                <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
+                <block type="catalog/product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="catalog/product/view/options/wrapper.phtml" translate="label">
+                    <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
+                    <label>Info Column Options Wrapper</label>
+                    <block type="core/template" name="options_js" template="catalog/product/view/options/js.phtml"/>
+                    <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="catalog/product/view/options.phtml">
+                        <action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>catalog/product/view/options/type/text.phtml</template></action>
+                        <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
+                        <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
+                        <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
+                    </block>
+                    <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+                </block>
+                <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
+                    <label>Bottom Block Options Wrapper</label>
+                    <action method="append"><block>product.info.addtocart</block></action>
+                    <action method="append"><block>product.info.addto</block></action>
+                </block>
+                <block type="core/template_facade" name="product.info.container1" as="container1">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container1</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+                <block type="core/template_facade" name="product.info.container2" as="container2">
+                    <action method="setDataByKey"><key>alias_in_layout</key><value>container2</value></action>
+                    <action method="setDataByKeyFromRegistry"><key>options_container</key><key_in_registry>product</key_in_registry></action>
+                    <action method="append"><block>product.info.options.wrapper</block></action>
+                    <action method="append"><block>product.info.options.wrapper.bottom</block></action>
+                </block>
+
+                <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+                <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
+                <block type="catalog/product_view" name="product.info.addtocart" as="addtocart" template="lightboxdetail/addtocart.phtml"/>
+            </block>
+        </reference>
+    </kitproduct_ajax_index_view>
+    <sales_order_view>
+        <reference name="order_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_view>
+
+    <sales_order_invoice>
+        <reference name="invoice_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/invoice/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_invoice>
+
+    <sales_order_shipment>
+        <reference name="shipment_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/shipment/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_shipment>
+
+    <sales_order_creditmemo>
+        <reference name="creditmemo_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/creditmemo/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_creditmemo>
+
+<!--
+Print pages
+-->
+
+    <sales_order_print>
+        <reference name="sales.order.print">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_print>
+
+    <sales_order_printinvoice>
+        <reference name="sales.order.print.invoice">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/invoice/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_printinvoice>
+
+    <sales_order_printshipment>
+        <reference name="sales.order.print.shipment">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/shipment/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_printshipment>
+
+    <sales_order_printcreditmemo>
+        <reference name="sales.order.print.creditmemo">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/creditmemo/items/renderer.phtml</template></action>
+        </reference>
+    </sales_order_printcreditmemo>
+
+<!--
+For guests
+-->
+    <sales_guest_view>
+        <reference name="order_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_view>
+
+    <sales_guest_invoice>
+        <reference name="invoice_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/invoice/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_invoice>
+
+    <sales_guest_shipment>
+        <reference name="shipment_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/shipment/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_shipment>
+
+    <sales_guest_creditmemo>
+        <reference name="creditmemo_items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/creditmemo/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_creditmemo>
+
+    <sales_guest_print>
+        <reference name="sales.order.print">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_print>
+
+    <sales_guest_printinvoice>
+        <reference name="sales.order.print.invoice">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/invoice/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_printinvoice>
+
+    <sales_guest_printshipment>
+        <reference name="sales.order.print.shipment">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/shipment/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_printshipment>
+
+    <sales_guest_printcreditmemo>
+        <reference name="sales.order.print.creditmemo">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/sales/order/creditmemo/items/renderer.phtml</template></action>
+        </reference>
+    </sales_guest_printcreditmemo>
+
+<!--
+Emails
+-->
+    <sales_email_order_items>
+        <reference name="items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/email/order/items/order/default.phtml</template></action>
+        </reference>
+    </sales_email_order_items>
+
+    <sales_email_order_invoice_items>
+        <reference name="items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/email/order/items/invoice/default.phtml</template></action>
+        </reference>
+    </sales_email_order_invoice_items>
+
+
+    <sales_email_order_shipment_items>
+        <reference name="items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/email/order/items/shipment/default.phtml</template></action>
+        </reference>
+    </sales_email_order_shipment_items>
+
+    <sales_email_order_creditmemo_items>
+        <reference name="items">
+            <action method="addItemRender"><type>kitproduct</type><block>kitproduct/sales_order_items_renderer</block><template>kitproduct/email/order/items/creditmemo/default.phtml</template></action>
+        </reference>
+    </sales_email_order_creditmemo_items>
+
+<!--
+RSS
+-->
+    <rss_catalog_category>
+        <reference name="rss.catalog.category">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/rss/catalog/product/price.phtml</template></action>
+        </reference>
+    </rss_catalog_category>
+    <rss_catalog_new>
+        <reference name="rss.catalog.new">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/rss/catalog/product/price.phtml</template></action>
+        </reference>
+    </rss_catalog_new>
+    <rss_catalog_tag>
+        <reference name="rss.catalog.tag">
+            <action method="addPriceBlockType"><type>kitproduct</type><block>kitproduct/catalog_product_price</block><template>kitproduct/rss/catalog/product/price.phtml</template></action>
+        </reference>
+    </rss_catalog_tag>
+</layout>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MagentoAid_KitProduct>
+            <active>true</active>
+            <codePool>local</codePool>
+        </MagentoAid_KitProduct>
+    </modules>
+</config>
