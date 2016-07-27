@@ -87,3 +87,11 @@
 
 !app/etc/modules/MagentoAid_KitProduct.xml
 
+
+!media
+!media/catalog
+!media/catalog/product
+!media/catalog/product/kitproduct
+!media/catalog/product/kitproduct/*
+
+
