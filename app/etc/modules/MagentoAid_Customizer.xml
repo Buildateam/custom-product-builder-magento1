@@ -2,7 +2,7 @@
 <config>
     <modules>
         <MagentoAid_Customizer>
-            <active>true</active>
+            <active>false</active>
             <codePool>local</codePool>
         </MagentoAid_Customizer>
     </modules>
