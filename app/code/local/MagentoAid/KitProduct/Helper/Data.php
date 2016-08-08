@@ -57,7 +57,9 @@ class MagentoAid_KitProduct_Helper_Data extends Mage_Core_Helper_Abstract
 
 
         // attach simple products to configurable product
-        $loader->saveProducts($configurable, $simpleIds);
+        if ( $configurable->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE ) {
+            $loader->saveProducts($configurable, $simpleIds);
+        }
 
         // reload configurable product to get prices
         $configurable = Mage::getModel('catalog/product')->load($subgroup_id);
