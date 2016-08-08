@@ -1,18 +1,6 @@
 *
 !.gitignore
 
-!app
-!app/code
-!app/code/local
-!app/code/local/MagentoAid
-!app/code/local/MagentoAid/Customizer
-!app/code/local/MagentoAid/Customizer/*
-!app/code/local/MagentoAid/Customizer/*/*
-!app/code/local/MagentoAid/Customizer/*/*/*
-!app/code/local/MagentoAid/Customizer/*/*/*/*
-!app/code/local/MagentoAid/Customizer/*/*/*/*/*
-!app/code/local/MagentoAid/Customizer/*/*/*/*/*/*
-
 !app/code/local/MagentoAid/KitProduct
 !app/code/local/MagentoAid/KitProduct/*
 !app/code/local/MagentoAid/KitProduct/*/*
@@ -70,23 +58,7 @@
 !app/design/adminhtml/default/default/template/kitproduct/*/*/*/*/*
 !app/design/adminhtml/default/default/template/kitproduct/*/*/*/*/*/*
 
-!skin
-!skin/frontend
-!skin/frontend/base
-!skin/frontend/base/default
-!skin/frontend/base/default/customizer_demo
-!skin/frontend/base/default/customizer_demo/*
-!skin/frontend/base/default/customizer_demo/*/*
-!skin/frontend/base/default/customizer_demo/*/*/*
-!skin/frontend/base/default/customizer_demo/*/*/*/*
-!skin/frontend/base/default/customizer_demo/*/*/*/*/*
-
-!app/etc
-!app/etc/modules
-!app/etc/modules/MagentoAid_Customizer.xml
-
 !app/etc/modules/MagentoAid_KitProduct.xml
-
 
 !media
 !media/catalog
