@@ -34,7 +34,7 @@ var kitproductTemplateRow ='<td>' +
                 '    <input type="text" placeholder="Position"                     name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][position]" value="{{position}}" autocomplete="off" >' +
                 '    <input type="text" placeholder="Price" class="required-entry" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][price]"    value="{{price}}"    autocomplete="off" >&nbsp;' +
 
-                '    <select name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][depends_on]">{{depends_on_options}}</select>  ' +
+                '    <select style="display: none;" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][depends_on]">{{depends_on_options}}</select>  ' +
 /*
     'Image:<span style="width:700px;"><img width=16 height=auto style="border: 1px solid #808080" src="{{image}}"/>' +
                 '<input type="file" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][{{opt_index}}][image]"/>&nbsp;' +
