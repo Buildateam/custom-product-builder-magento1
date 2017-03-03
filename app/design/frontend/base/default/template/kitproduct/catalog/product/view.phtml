@@ -15,7 +15,7 @@ $jsonGroups = Zend_Json::prettyPrint($jsonGroups, array('indent' => '  '));
 
 <script type="text/javascript">
     var customReactConfig = {
-        "kitImgDir": '<?php echo $imgUrl; ?>',
+        "kitImgDir": '',
         "kitHiddenInputName": 'kit-configurable-product',
         "kitHiddenInputClassname": 'kit-simple-product',
         "kitGroups": <?php echo $jsonGroups; ?>
@@ -888,7 +888,7 @@ function kitAddToCart()
                 }
 
                 jQuery('#after-loading-success-message #success-message-container .msg-box').html( data.popup_added );
-                <?php $autoclose = Mage::getStoreConfig('ajaxcart/addtocart/autoclose', $code);?>
+                <?php $autoclose = Mage::getStoreConfig('ajaxcart/addtocart/autoclose', Mage::app()->getStore()->getCode());?>
                 ajaxcart_sec = <?php echo ($autoclose && is_numeric($autoclose))?$autoclose:5; ?>;
                 timer_sec = ajaxcart_sec;
                 jQuery('#after-loading-success-message').fadeIn(200);

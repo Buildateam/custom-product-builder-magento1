@@ -38,6 +38,11 @@ class MagentoAid_KitProduct_Adminhtml_AjaxController extends Mage_Adminhtml_Cont
         $this->setUsedModuleName('MagentoAid_KitProduct');
     }
 
+    public function _isAllowed()
+    {
+        return true;
+    }
+
     /**
      * Return module's helper
      * @return MagentoAid_KitProduct_Helper_Data

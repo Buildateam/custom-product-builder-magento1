@@ -84,23 +84,14 @@ class MagentoAid_KitProduct_Helper_Json_Mapper extends Mage_Core_Helper_Abstract
 
     protected function _prepareAfter($obj, $type, &$data)
     {
-        $mediaCatalogProduct = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
-        $imgDir = $mediaCatalogProduct . DS . Mage::helper('kitproduct/catalog_product_image')->getImagePath( $this->getKitProduct() );
+        $obj = $obj->load($obj->getProductId());
 
-        if ( $type == 'option' )
-        {
+        if ($type == 'option') {
             $data['order']= (int)$obj->getData('position');
 
-            $imgZoom = $obj->getSku()  . '_image.png';
-            $imgImage = $obj->getSku() . '_smallimage.png';
-            $imgIcon = $obj->getSku()  . '_thumbnail.png';
-
-            if ( file_exists($imgDir . $imgZoom) )
-            {
-                $data['zoomUrl'] = $imgZoom;
-            }
-            $data['imageUrl']= $imgImage;
-            $data['iconUrl']= $imgIcon;
+            $data['zoomUrl'] = Mage::helper('catalog/image')->init($obj, 'image')->__toString();
+            $data['imageUrl'] = Mage::helper('catalog/image')->init($obj, 'small_image')->resize(null, 600)->__toString();
+            $data['iconUrl'] = Mage::helper('catalog/image')->init($obj, 'thumbnail')->resize(100, 50)->__toString();
 
             $data['is_salable']= $obj->getIsSalable();
         }
