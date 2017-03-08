@@ -32,14 +32,14 @@ extends Mage_Core_Helper_Abstract
         {
             if ( !mkdir( $imgPath ) )
             {
-                throw new Exception('Failed to create Kit images folder.');
+                //throw new Exception('Failed to create Kit images folder.');
             }
         }
         if ( !is_dir($compositeImgPath) )
         {
             if ( !mkdir( $compositeImgPath ) )
             {
-                throw new Exception('Failed to create Kit composite images folder.');
+                //throw new Exception('Failed to create Kit composite images folder.');
             }
         }
     }

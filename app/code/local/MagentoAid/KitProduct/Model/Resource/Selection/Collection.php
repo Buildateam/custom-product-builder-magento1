@@ -74,8 +74,8 @@ class MagentoAid_KitProduct_Model_Resource_Selection_Collection extends Mage_Cat
      */
     protected function _initSelect()
     {
-        $this->addAttributeToSelect('status');
         parent::_initSelect();
+        $this->addAttributeToSelect('status');
         $this->getSelect()
             ->join(array('selection' => $this->_selectionTable), 'selection.product_id = e.entity_id', array('*'))
             ->join(array('csi' => 'cataloginventory_stock_item'), 'e.entity_id = csi.product_id', array('is_in_stock' => 'csi.is_in_stock'))

@@ -294,11 +294,7 @@ class MagentoAid_KitProduct_Model_Product_Type extends Mage_Catalog_Model_Produc
                 $adapter->rollback();
                 throw $e;
             }
-
-
-
         }
-        Mage::helper('kitproduct/catalog_product_image')->createImageFoldersIfNeed( $product );
 
         return $this;
     }

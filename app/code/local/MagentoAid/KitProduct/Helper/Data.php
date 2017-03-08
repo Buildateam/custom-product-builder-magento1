@@ -47,7 +47,6 @@ class MagentoAid_KitProduct_Helper_Data extends Mage_Core_Helper_Abstract
     public function addOptionsToSubgroup($subgroup_id, $option_ids){
 
         $configurable = Mage::getModel('catalog/product')->load($subgroup_id);
-        $loader = Mage::getResourceModel('catalog/product_type_configurable')->load($configurable, $configurable->getId());
 
         $simpleIds = array();
 
@@ -58,13 +57,18 @@ class MagentoAid_KitProduct_Helper_Data extends Mage_Core_Helper_Abstract
 
         // attach simple products to configurable product
         if ( $configurable->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE ) {
-            $loader->saveProducts($configurable, $simpleIds);
+            Mage::getResourceModel('catalog/product_type_configurable')
+                ->saveProducts($configurable, $simpleIds);
         }
 
         // reload configurable product to get prices
         $configurable = Mage::getModel('catalog/product')->load($subgroup_id);
         $attribute = Mage::getModel('catalog/product_type_configurable')->getConfigurableAttributes($configurable)->getFirstItem();
         $configPrices = $attribute->getPrices();
+
+        if (!$configPrices) {
+            return;
+        }
 
         foreach($option_ids as $option_id){
             $simple = Mage::getModel('catalog/product')->load($option_id);
@@ -74,7 +78,6 @@ class MagentoAid_KitProduct_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
-
 
         $attribute->setValues($configPrices);
         Mage::getResourceModel('catalog/product_type_configurable_attribute')->savePrices($attribute);
