@@ -18,7 +18,9 @@ $jsonGroups = Zend_Json::prettyPrint($jsonGroups, array('indent' => '  '));
         "kitImgDir": '',
         "kitHiddenInputName": 'kit-configurable-product',
         "kitHiddenInputClassname": 'kit-simple-product',
-        "kitGroups": <?php echo $jsonGroups; ?>
+        "kitGroups": <?php echo $jsonGroups; ?>,
+        "kitName": "<?php echo $this->escapeHtml($product->getName()); ?>",
+        "kitUrl": "<?php echo $product->getProductUrl(); ?>"
 
         <?php /*
         "kitGroups": [

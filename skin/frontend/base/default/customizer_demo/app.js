@@ -20016,8 +20016,8 @@
 	              null,
 	              _react2["default"].createElement(
 	                "a",
-	                { className: "guitar-link", href: "/guitars.html" },
-	                "Guitars"
+	                { className: "guitar-link", href: customReactConfig.kitUrl },
+                      customReactConfig.kitName
 	              )
 	            )
 	          )
