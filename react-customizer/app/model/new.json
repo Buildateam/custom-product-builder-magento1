@@ -1,0 +1,765 @@
+{
+  "error": 0,
+  "message": "",
+  "groups": [
+    {
+      "id": 12,
+      "name": "Design",
+      "order": 1,
+      "subgroups": [
+        {
+          "id": 13,
+          "name": "Orientation",
+          "order": 1,
+          "options": [
+            {
+              "id": 1672312,
+              "name": "Left",
+              "order": 10,
+              "price": 75,
+              "description": "Left description text",
+              "zoomUrl": "customguitar_design_orientation_left_image.png",
+              "imageUrl": "customguitar_design_orientation_left_smallimage.png",
+              "iconUrl": "customguitar_design_orientation_left_thumbnail.png"
+            },
+            {
+              "id": 1672313,
+              "name": "Right",
+              "order": 20,
+              "price": 0,
+              "description": "Right description text",
+              "zoomUrl": "customguitar_design_orientation_right_image.png",
+              "imageUrl": "customguitar_design_orientation_right_smallimage.png",
+              "iconUrl": "customguitar_design_orientation_right_thumbnail.png"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "Design",
+          "order": 2,
+          "options": [
+            {
+              "id": 1672315,
+              "name": "Chrome",
+              "order": 1,
+              "price": 0,
+              "description": "Chrome description text",
+              "zoomUrl": "customguitar_design_design_chrome_image.png",
+              "imageUrl": "customguitar_design_design_chrome_smallimage.png",
+              "iconUrl": "customguitar_design_design_chrome_thumbnail.png"
+            },
+            {
+              "id": 1672316,
+              "name": "Honey",
+              "order": 2,
+              "price": 0,
+              "description": "Honey description text",
+              "zoomUrl": "customguitar_design_design_honey_image.png",
+              "imageUrl": "customguitar_design_design_honey_smallimage.png",
+              "iconUrl": "customguitar_design_design_honey_thumbnail.png"
+            },
+            {
+              "id": 1672317,
+              "name": "Surf Wax",
+              "order": 3,
+              "price": 0,
+              "description": "Surf Wax description text",
+              "zoomUrl": "customguitar_design_design_surfwax_image.png",
+              "imageUrl": "customguitar_design_design_surfwax_smallimage.png",
+              "iconUrl": "customguitar_design_design_surfwax_thumbnail.png"
+            },
+            {
+              "id": 1672318,
+              "name": "Moonshine",
+              "order": 4,
+              "price": 0,
+              "description": "Moonshine description text",
+              "zoomUrl": "customguitar_design_design_moonshine_image.png",
+              "imageUrl": "customguitar_design_design_moonshine_smallimage.png",
+              "iconUrl": "customguitar_design_design_moonshine_thumbnail.png"
+            },
+            {
+              "id": 1672319,
+              "name": "Motor Oil",
+              "order": 5,
+              "price": 0,
+              "description": "Motor Oil description text",
+              "zoomUrl": "customguitar_design_design_motoroil_image.png",
+              "imageUrl": "customguitar_design_design_motoroil_smallimage.png",
+              "iconUrl": "customguitar_design_design_motoroil_thumbnail.png"
+            },
+            {
+              "id": 1672320,
+              "name": "Ale",
+              "order": 6,
+              "price": 0,
+              "description": "Ale description text",
+              "zoomUrl": "customguitar_design_design_ale_image.png",
+              "imageUrl": "customguitar_design_design_ale_smallimage.png",
+              "iconUrl": "customguitar_design_design_ale_thumbnail.png"
+            },
+            {
+              "id": 1672321,
+              "name": "Hot Sauce",
+              "order": 7,
+              "price": 0,
+              "description": "Hot Sauce description text",
+              "zoomUrl": "customguitar_design_design_hotsauce_image.png",
+              "imageUrl": "customguitar_design_design_hotsauce_smallimage.png",
+              "iconUrl": "customguitar_design_design_hotsauce_thumbnail.png"
+            },
+            {
+              "id": 1672322,
+              "name": "Limeade",
+              "order": 8,
+              "price": 0,
+              "description": "Limeade description text",
+              "zoomUrl": "customguitar_design_design_limeade_image.png",
+              "imageUrl": "customguitar_design_design_limeade_smallimage.png",
+              "iconUrl": "customguitar_design_design_limeade_thumbnail.png"
+            },
+            {
+              "id": 1672323,
+              "name": "Blue Body",
+              "order": 9,
+              "price": 0,
+              "description": "Blue Body description text",
+              "zoomUrl": "customguitar_design_design_bluebody_image.png",
+              "imageUrl": "customguitar_design_design_bluebody_smallimage.png",
+              "iconUrl": "customguitar_design_design_bluebody_thumbnail.png"
+            },
+            {
+              "id": 1672324,
+              "name": "Red Body",
+              "order": 10,
+              "price": 0,
+              "description": "Red Body description text",
+              "zoomUrl": "customguitar_design_design_redbody_image.png",
+              "imageUrl": "customguitar_design_design_redbody_smallimage.png",
+              "iconUrl": "customguitar_design_design_redbody_thumbnail.png"
+            },
+            {
+              "id": 1672325,
+              "name": "White Body",
+              "order": 11,
+              "price": 0,
+              "description": "White Body description text",
+              "zoomUrl": "customguitar_design_design_whitebody_image.png",
+              "imageUrl": "customguitar_design_design_whitebody_smallimage.png",
+              "iconUrl": "customguitar_design_design_whitebody_thumbnail.png"
+            },
+            {
+              "id": 1672326,
+              "name": "Black Body",
+              "order": 12,
+              "price": 0,
+              "description": "Black Body description text",
+              "zoomUrl": "customguitar_design_design_blackbody_image.png",
+              "imageUrl": "customguitar_design_design_blackbody_smallimage.png",
+              "iconUrl": "customguitar_design_design_blackbody_thumbnail.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Neck",
+      "order": 2,
+      "subgroups": [
+        {
+          "id": 15,
+          "name": "Neck Color",
+          "order": 3,
+          "options": [
+            {
+              "id": 1672328,
+              "name": "Blue Neck",
+              "order": 1,
+              "price": 10,
+              "description": "Blue Neck description text",
+              "zoomUrl": "customguitar_neck_neckcolor_blueneck_image.png",
+              "imageUrl": "customguitar_neck_neckcolor_blueneck_smallimage.png",
+              "iconUrl": "customguitar_neck_neckcolor_blueneck_thumbnail.png"
+            },
+            {
+              "id": 1672329,
+              "name": "Red Neck",
+              "order": 2,
+              "price": 10,
+              "description": "Red Neck description text",
+              "zoomUrl": "customguitar_neck_neckcolor_redneck_image.png",
+              "imageUrl": "customguitar_neck_neckcolor_redneck_smallimage.png",
+              "iconUrl": "customguitar_neck_neckcolor_redneck_thumbnail.png"
+            },
+            {
+              "id": 1672330,
+              "name": "White Neck",
+              "order": 3,
+              "price": 10,
+              "description": "White Neck description text",
+              "zoomUrl": "customguitar_neck_neckcolor_whiteneck_image.png",
+              "imageUrl": "customguitar_neck_neckcolor_whiteneck_smallimage.png",
+              "iconUrl": "customguitar_neck_neckcolor_whiteneck_thumbnail.png"
+            },
+            {
+              "id": 1672331,
+              "name": "Black Neck",
+              "order": 4,
+              "price": 10,
+              "description": "Black Neck description text",
+              "zoomUrl": "customguitar_neck_neckcolor_blackneck_image.png",
+              "imageUrl": "customguitar_neck_neckcolor_blackneck_smallimage.png",
+              "iconUrl": "customguitar_neck_neckcolor_blackneck_thumbnail.png"
+            },
+            {
+              "id": 1672332,
+              "name": "Cream Neck",
+              "order": 5,
+              "price": 10,
+              "description": "Cream Neck description text",
+              "zoomUrl": "customguitar_neck_neckcolor_creamneck_image.png",
+              "imageUrl": "customguitar_neck_neckcolor_creamneck_smallimage.png",
+              "iconUrl": "customguitar_neck_neckcolor_creamneck_thumbnail.png"
+            },
+            {
+              "id": 1672333,
+              "name": "Hazel Neck",
+              "order": 6,
+              "price": 0,
+              "description": "Hazel Neck description text",
+              "zoomUrl": "customguitar_neck_neckcolor_hazelneck_image.png",
+              "imageUrl": "customguitar_neck_neckcolor_hazelneck_smallimage.png",
+              "iconUrl": "customguitar_neck_neckcolor_hazelneck_thumbnail.png"
+            },
+            {
+              "id": 1672334,
+              "name": "Cherry Neck",
+              "order": 7,
+              "price": 0,
+              "description": "Cherry Neck description text",
+              "zoomUrl": "customguitar_neck_neckcolor_cherryneck_image.png",
+              "imageUrl": "customguitar_neck_neckcolor_cherryneck_smallimage.png",
+              "iconUrl": "customguitar_neck_neckcolor_cherryneck_thumbnail.png"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "name": "Headstock",
+          "order": 4,
+          "options": [
+            {
+              "id": 1672336,
+              "name": "Natural Headstock",
+              "order": 1,
+              "price": 0,
+              "description": "Natural Headstock description text",
+              "zoomUrl": "customguitar_neck_headstock_naturalheadstock_image.png",
+              "imageUrl": "customguitar_neck_headstock_naturalheadstock_smallimage.png",
+              "iconUrl": "customguitar_neck_headstock_naturalheadstock_thumbnail.png"
+            },
+            {
+              "id": 1672337,
+              "name": "Blue Headstock",
+              "order": 2,
+              "price": 10,
+              "description": "Blue Headstock description text",
+              "zoomUrl": "customguitar_neck_headstock_blueheadstock_image.png",
+              "imageUrl": "customguitar_neck_headstock_blueheadstock_smallimage.png",
+              "iconUrl": "customguitar_neck_headstock_blueheadstock_thumbnail.png"
+            },
+            {
+              "id": 1672338,
+              "name": "Red Headstock",
+              "order": 3,
+              "price": 10,
+              "description": "Red Headstock description text",
+              "zoomUrl": "customguitar_neck_headstock_redheadstock_image.png",
+              "imageUrl": "customguitar_neck_headstock_redheadstock_smallimage.png",
+              "iconUrl": "customguitar_neck_headstock_redheadstock_thumbnail.png"
+            },
+            {
+              "id": 1672339,
+              "name": "White Headstock",
+              "order": 4,
+              "price": 10,
+              "description": "White Headstock description text",
+              "zoomUrl": "customguitar_neck_headstock_whiteheadstock_image.png",
+              "imageUrl": "customguitar_neck_headstock_whiteheadstock_smallimage.png",
+              "iconUrl": "customguitar_neck_headstock_whiteheadstock_thumbnail.png"
+            },
+            {
+              "id": 1672340,
+              "name": "Black Headstock",
+              "order": 5,
+              "price": 10,
+              "description": "Black Headstock description text",
+              "zoomUrl": "customguitar_neck_headstock_blackheadstock_image.png",
+              "imageUrl": "customguitar_neck_headstock_blackheadstock_smallimage.png",
+              "iconUrl": "customguitar_neck_headstock_blackheadstock_thumbnail.png"
+            },
+            {
+              "id": 1672341,
+              "name": "Green Headstock",
+              "order": 6,
+              "price": 10,
+              "description": "Green Headstock description text",
+              "zoomUrl": "customguitar_neck_headstock_greenheadstock_image.png",
+              "imageUrl": "customguitar_neck_headstock_greenheadstock_smallimage.png",
+              "iconUrl": "customguitar_neck_headstock_greenheadstock_thumbnail.png"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "name": "Tuners",
+          "order": 5,
+          "options": [
+            {
+              "id": 1672343,
+              "name": "Chrome Tuner",
+              "order": 1,
+              "price": 0,
+              "description": "Chrome Tuner description text",
+              "zoomUrl": "customguitar_neck_tuners_chrometuner_image.png",
+              "imageUrl": "customguitar_neck_tuners_chrometuner_smallimage.png",
+              "iconUrl": "customguitar_neck_tuners_chrometuner_thumbnail.png"
+            },
+            {
+              "id": 1672344,
+              "name": "Black Tuner",
+              "order": 2,
+              "price": 16,
+              "description": "Black Tuner description text",
+              "zoomUrl": "customguitar_neck_tuners_blacktuner_image.png",
+              "imageUrl": "customguitar_neck_tuners_blacktuner_smallimage.png",
+              "iconUrl": "customguitar_neck_tuners_blacktuner_thumbnail.png"
+            },
+            {
+              "id": 1672345,
+              "name": "Gold Tuner",
+              "order": 3,
+              "price": 20,
+              "description": "Gold Tuner description text",
+              "zoomUrl": "customguitar_neck_tuners_goldtuner_image.png",
+              "imageUrl": "customguitar_neck_tuners_goldtuner_smallimage.png",
+              "iconUrl": "customguitar_neck_tuners_goldtuner_thumbnail.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Body",
+      "order": 3,
+      "subgroups": [
+        {
+          "id": 18,
+          "name": "Pickups",
+          "order": 6,
+          "options": [
+            {
+              "id": 1672347,
+              "name": "Humbucker Single Coil White",
+              "order": 1,
+              "price": 0,
+              "description": "Humbucker Single Coil White description text",
+              "zoomUrl": "customguitar_body_pickups_humbuckersinglecoilwhite_image.png",
+              "imageUrl": "customguitar_body_pickups_humbuckersinglecoilwhite_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_humbuckersinglecoilwhite_thumbnail.png"
+            },
+            {
+              "id": 1672348,
+              "name": "Humbucker Single Coil Black",
+              "order": 2,
+              "price": 0,
+              "description": "Humbucker Single Coil Black description text",
+              "zoomUrl": "customguitar_body_pickups_humbuckersinglecoilblack_image.png",
+              "imageUrl": "customguitar_body_pickups_humbuckersinglecoilblack_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_humbuckersinglecoilblack_thumbnail.png"
+            },
+            {
+              "id": 1672349,
+              "name": "Dual White Humbuckers",
+              "order": 3,
+              "price": 0,
+              "description": "Dual White Humbuckers description text",
+              "zoomUrl": "customguitar_body_pickups_dualwhitehumbuckers_image.png",
+              "imageUrl": "customguitar_body_pickups_dualwhitehumbuckers_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_dualwhitehumbuckers_thumbnail.png"
+            },
+            {
+              "id": 1672350,
+              "name": "Dual Black Humbuckers",
+              "order": 4,
+              "price": 0,
+              "description": "Dual Black Humbuckers description text",
+              "zoomUrl": "customguitar_body_pickups_dualblackhumbuckers_image.png",
+              "imageUrl": "customguitar_body_pickups_dualblackhumbuckers_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_dualblackhumbuckers_thumbnail.png"
+            },
+            {
+              "id": 1672351,
+              "name": "Single P90 Cream",
+              "order": 5,
+              "price": 0,
+              "description": "Single P90 Cream description text",
+              "zoomUrl": "customguitar_body_pickups_singlep90cream_image.png",
+              "imageUrl": "customguitar_body_pickups_singlep90cream_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_singlep90cream_thumbnail.png"
+            },
+            {
+              "id": 1672352,
+              "name": "Single P90 Black",
+              "order": 6,
+              "price": 0,
+              "description": "Single P90 Black description text",
+              "zoomUrl": "customguitar_body_pickups_singlep90black_image.png",
+              "imageUrl": "customguitar_body_pickups_singlep90black_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_singlep90black_thumbnail.png"
+            },
+            {
+              "id": 1672353,
+              "name": "Dual Cream P90",
+              "order": 7,
+              "price": 0,
+              "description": "Dual Cream P90 description text",
+              "zoomUrl": "customguitar_body_pickups_dualcreamp90_image.png",
+              "imageUrl": "customguitar_body_pickups_dualcreamp90_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_dualcreamp90_thumbnail.png"
+            },
+            {
+              "id": 1672354,
+              "name": "Dual Black P90",
+              "order": 8,
+              "price": 0,
+              "description": "Dual Black P90 description text",
+              "zoomUrl": "customguitar_body_pickups_dualblackp90_image.png",
+              "imageUrl": "customguitar_body_pickups_dualblackp90_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_dualblackp90_thumbnail.png"
+            },
+            {
+              "id": 1672355,
+              "name": "Dual White Single Coil",
+              "order": 9,
+              "price": 0,
+              "description": "Dual White Single Coil description text",
+              "zoomUrl": "customguitar_body_pickups_dualwhitesinglecoil_image.png",
+              "imageUrl": "customguitar_body_pickups_dualwhitesinglecoil_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_dualwhitesinglecoil_thumbnail.png"
+            },
+            {
+              "id": 1672356,
+              "name": "Dual Black Single Coil",
+              "order": 10,
+              "price": 0,
+              "description": "Dual Black Single Coil description text",
+              "zoomUrl": "customguitar_body_pickups_dualblacksinglecoil_image.png",
+              "imageUrl": "customguitar_body_pickups_dualblacksinglecoil_smallimage.png",
+              "iconUrl": "customguitar_body_pickups_dualblacksinglecoil_thumbnail.png"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "Bridge",
+          "order": 7,
+          "options": [
+            {
+              "id": {
+                "1672312": 1672358,
+                "1672313": 1672383
+              },
+              "name": "Chrome Bridge",
+              "order": {
+                "1672312": 1,
+                "1672313": 2
+              },
+              "price": {
+                "1672312": 0,
+                "1672313": 0
+              },
+              "description": {
+                "1672312": "Chrome Bridge description text",
+                "1672313": "Chrome Bridge description text"
+              },
+              "depends_on": [
+                "1672312",
+                "1672313"
+              ],
+              "zoomUrl": {
+                "1672312": "customguitar_body_bridge_chromebridge_orientation_left_image.png",
+                "1672313": "customguitar_body_bridge_chromebridge_orientation_right_image.png"
+              },
+              "imageUrl": {
+                "1672312": "customguitar_body_bridge_chromebridge_orientation_left_smallimage.png",
+                "1672313": "customguitar_body_bridge_chromebridge_orientation_right_smallimage.png"
+              },
+              "iconUrl": {
+                "1672312": "customguitar_body_bridge_chromebridge_orientation_left_thumbnail.png",
+                "1672313": "customguitar_body_bridge_chromebridge_orientation_right_thumbnail.png"
+              }
+            },
+            {
+              "id": {
+                "1672312": 1672359,
+                "1672313": 1672384
+              },
+              "name": "Black Bridge",
+              "order": {
+                "1672312": 3,
+                "1672313": 4
+              },
+              "price": {
+                "1672312": 15,
+                "1672313": 15
+              },
+              "description": {
+                "1672312": "Black Bridge description text",
+                "1672313": "Black Bridge description text"
+              },
+              "depends_on": [
+                "1672312",
+                "1672313"
+              ],
+              "zoomUrl": {
+                "1672312": "customguitar_body_bridge_blackbridge_orientation_left_image.png",
+                "1672313": "customguitar_body_bridge_blackbridge_orientation_right_image.png"
+              },
+              "imageUrl": {
+                "1672312": "customguitar_body_bridge_blackbridge_orientation_left_smallimage.png",
+                "1672313": "customguitar_body_bridge_blackbridge_orientation_right_smallimage.png"
+              },
+              "iconUrl": {
+                "1672312": "customguitar_body_bridge_blackbridge_orientation_left_thumbnail.png",
+                "1672313": "customguitar_body_bridge_blackbridge_orientation_right_thumbnail.png"
+              }
+            },
+            {
+              "id": {
+                "1672312": 1672360,
+                "1672313": 1672385
+              },
+              "name": "Gold Bridge",
+              "order": {
+                "1672312": 5,
+                "1672313": 6
+              },
+              "price": {
+                "1672312": 20,
+                "1672313": 20
+              },
+              "description": {
+                "1672312": "Gold Bridge description text",
+                "1672313": "Gold Bridge description text"
+              },
+              "depends_on": [
+                "1672312",
+                "1672313"
+              ],
+              "zoomUrl": {
+                "1672312": "customguitar_body_bridge_goldbridge_orientation_left_image.png",
+                "1672313": "customguitar_body_bridge_goldbridge_orientation_right_image.png"
+              },
+              "imageUrl": {
+                "1672312": "customguitar_body_bridge_goldbridge_orientation_left_smallimage.png",
+                "1672313": "customguitar_body_bridge_goldbridge_orientation_right_smallimage.png"
+              },
+              "iconUrl": {
+                "1672312": "customguitar_body_bridge_goldbridge_orientation_left_thumbnail.png",
+                "1672313": "customguitar_body_bridge_goldbridge_orientation_right_thumbnail.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "Tailpiece",
+          "order": 8,
+          "options": [
+            {
+              "id": 1672364,
+              "name": "Chrome Tailpiece",
+              "order": 1,
+              "price": 0,
+              "description": "Chrome Tailpiece description text",
+              "zoomUrl": "customguitar_body_tailpiece_chrometailpiece_image.png",
+              "imageUrl": "customguitar_body_tailpiece_chrometailpiece_smallimage.png",
+              "iconUrl": "customguitar_body_tailpiece_chrometailpiece_thumbnail.png"
+            },
+            {
+              "id": 1672365,
+              "name": "Black Tailpiece",
+              "order": 2,
+              "price": 15,
+              "description": "Black Tailpiece description text",
+              "zoomUrl": "customguitar_body_tailpiece_blacktailpiece_image.png",
+              "imageUrl": "customguitar_body_tailpiece_blacktailpiece_smallimage.png",
+              "iconUrl": "customguitar_body_tailpiece_blacktailpiece_thumbnail.png"
+            },
+            {
+              "id": 1672366,
+              "name": "Gold Tailpiece",
+              "order": 3,
+              "price": 20,
+              "description": "Gold Tailpiece description text",
+              "zoomUrl": "customguitar_body_tailpiece_goldtailpiece_image.png",
+              "imageUrl": "customguitar_body_tailpiece_goldtailpiece_smallimage.png",
+              "iconUrl": "customguitar_body_tailpiece_goldtailpiece_thumbnail.png"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "Knobs",
+          "order": 9,
+          "options": [
+            {
+              "id": {
+                "1672312": 1672373,
+                "1672313": 1672379
+              },
+              "name": "Chrome Knob",
+              "order": {
+                "1672312": 1,
+                "1672313": 2
+              },
+              "price": {
+                "1672312": 9,
+                "1672313": 9
+              },
+              "description": {
+                "1672312": "Chrome Knob description text",
+                "1672313": "Chrome Knob description text"
+              },
+              "depends_on": [
+                "1672312",
+                "1672313"
+              ],
+              "zoomUrl": {
+                "1672312": "customguitar_body_knobs_chromeknob_orientation_left_image.png",
+                "1672313": "customguitar_body_knobs_chromeknob_orientation_right_image.png"
+              },
+              "imageUrl": {
+                "1672312": "customguitar_body_knobs_chromeknob_orientation_left_smallimage.png",
+                "1672313": "customguitar_body_knobs_chromeknob_orientation_right_smallimage.png"
+              },
+              "iconUrl": {
+                "1672312": "customguitar_body_knobs_chromeknob_orientation_left_thumbnail.png",
+                "1672313": "customguitar_body_knobs_chromeknob_orientation_right_thumbnail.png"
+              }
+            },
+            {
+              "id": {
+                "1672312": 1672374,
+                "1672313": 1672380
+              },
+              "name": "Black Knob",
+              "order": {
+                "1672312": 3,
+                "1672313": 4
+              },
+              "price": {
+                "1672312": 12,
+                "1672313": 12
+              },
+              "description": {
+                "1672312": "Black Knob description text",
+                "1672313": "Black Knob description text"
+              },
+              "depends_on": [
+                "1672312",
+                "1672313"
+              ],
+              "zoomUrl": {
+                "1672312": "customguitar_body_knobs_blackknob_orientation_left_image.png",
+                "1672313": "customguitar_body_knobs_blackknob_orientation_right_image.png"
+              },
+              "imageUrl": {
+                "1672312": "customguitar_body_knobs_blackknob_orientation_left_smallimage.png",
+                "1672313": "customguitar_body_knobs_blackknob_orientation_right_smallimage.png"
+              },
+              "iconUrl": {
+                "1672312": "customguitar_body_knobs_blackknob_orientation_left_thumbnail.png",
+                "1672313": "customguitar_body_knobs_blackknob_orientation_right_thumbnail.png"
+              }
+            },
+            {
+              "id": {
+                "1672312": 1672377,
+                "1672313": 1672381
+              },
+              "name": "Gold Knob",
+              "order": {
+                "1672312": 5,
+                "1672313": 6
+              },
+              "price": {
+                "1672312": 15,
+                "1672313": 15
+              },
+              "description": {
+                "1672312": "Gold Knob description text",
+                "1672313": "Gold Knob description text"
+              },
+              "depends_on": [
+                "1672312",
+                "1672313"
+              ],
+              "zoomUrl": {
+                "1672312": "customguitar_body_knobs_goldknob_orientation_left_image.png",
+                "1672313": "customguitar_body_knobs_goldknob_orientation_right_image.png"
+              },
+              "imageUrl": {
+                "1672312": "customguitar_body_knobs_goldknob_orientation_left_smallimage.png",
+                "1672313": "customguitar_body_knobs_goldknob_orientation_right_smallimage.png"
+              },
+              "iconUrl": {
+                "1672312": "customguitar_body_knobs_goldknob_orientation_left_thumbnail.png",
+                "1672313": "customguitar_body_knobs_goldknob_orientation_right_thumbnail.png"
+              }
+            },
+            {
+              "id": {
+                "1672312": 1672378,
+                "1672313": 1672382
+              },
+              "name": "Wood Knob",
+              "order": {
+                "1672312": 7,
+                "1672313": 8
+              },
+              "price": {
+                "1672312": 25,
+                "1672313": 25
+              },
+              "description": {
+                "1672312": "Wood Knob description text",
+                "1672313": "Wood Knob description text"
+              },
+              "depends_on": [
+                "1672312",
+                "1672313"
+              ],
+              "zoomUrl": {
+                "1672312": "customguitar_body_knobs_woodknob_orientation_left_image.png",
+                "1672313": "customguitar_body_knobs_woodknob_orientation_right_image.png"
+              },
+              "imageUrl": {
+                "1672312": "customguitar_body_knobs_woodknob_orientation_left_smallimage.png",
+                "1672313": "customguitar_body_knobs_woodknob_orientation_right_smallimage.png"
+              },
+              "iconUrl": {
+                "1672312": "customguitar_body_knobs_woodknob_orientation_left_thumbnail.png",
+                "1672313": "customguitar_body_knobs_woodknob_orientation_right_thumbnail.png"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
